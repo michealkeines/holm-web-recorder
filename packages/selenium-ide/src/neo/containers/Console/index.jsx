@@ -73,13 +73,14 @@ export default class Console extends React.Component {
       { name: 'Reference', unread: false },
     ]
     return (
-      <footer
-        className="console"
-        style={{
-          height: this.props.height ? `${this.props.height}px` : 'initial',
-        }}
-      >
-        <TabBar
+      <footer>
+      {/* // <footer
+      //   className="console"
+      //   style={{
+      //     height: this.props.height ? `${this.props.height}px` : 'initial',
+      //   }}
+      // > */}
+        {/* <TabBar
           tabs={tabs}
           tabWidth={90}
           buttonsMargin={0}
@@ -103,7 +104,8 @@ export default class Console extends React.Component {
               role="tabpanel"
             />
           )}
-        </div>
+        </div> */}
+      {/* </footer> */}
       </footer>
     )
   }
