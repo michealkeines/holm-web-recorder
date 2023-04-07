@@ -49,13 +49,13 @@ class UiState {
   @observable
   isSelectingTarget = false
   @observable
-  windowHeight = window.innerHeight
+  windowHeight = 200
   @observable
-  consoleHeight = 200
+  consoleHeight = 0
   @observable
-  minConsoleHeight = 30
+  minConsoleHeight = 0
   @observable
-  minContentHeight = 460
+  minContentHeight = 0
   @observable
   minNavigationWidth = 180
   @observable

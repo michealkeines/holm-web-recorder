@@ -91,8 +91,8 @@ function openPanel(tab) {
 
 function openWindowFromStorageResolution() {
   let opts = {
-    height: 690,
-    width: 550,
+    height: 200,
+    width: 300,
   }
   return browser.storage.local
     .get()
@@ -106,25 +106,23 @@ function openWindowFromStorageResolution() {
         opts.left = storage.origin.left
       }
       return browser.windows.create(
-        Object.assign(
           {
             url: browser.extension.getURL('index.html'),
-            type: 'popup',
-          },
-          opts
-        )
+            type: 'panel',
+            height: 200,
+            width: 300,
+          }
       )
     })
     .catch(e => {
       console.error(e) // eslint-disable-line no-console
       return browser.windows.create(
-        Object.assign(
-          {
-            url: browser.extension.getURL('index.html'),
-            type: 'popup',
-          },
-          opts
-        )
+        {
+          url: browser.extension.getURL('index.html'),
+          type: 'panel',
+          height: 200,
+          width: 300,
+        }
       )
     })
 }

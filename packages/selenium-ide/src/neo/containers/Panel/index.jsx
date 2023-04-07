@@ -321,21 +321,24 @@ export default class Panel extends React.Component {
         )}
         onKeyDown={this.handleKeyDownAlt.bind(this)}
         style={{
-          minHeight: UiState.minContentHeight + UiState.minConsoleHeight + 'px',
+          maxHeight: '200px',
         }}
       >
         <SuiteDropzone loadProject={this.doLoadProject.bind(this)}>
           <SplitPane
             split="horizontal"
-            minSize={UiState.minContentHeight}
-            maxSize={UiState.maxContentHeight}
-            size={UiState.windowHeight - UiState.consoleHeight}
+            minSize={100}
+            maxSize={200}
+            size={200}
             onChange={size => UiState.resizeConsole(window.innerHeight - size)}
             style={{
               position: 'initial',
+              maxHeight: '200px',
             }}
           >
-            <div className="wrapper">
+            <div className="wrapper" style={{
+                  maxHeight: '200px',
+                }}>
               <PauseBanner />
               <ProjectHeader
                 title={this.state.project.name}
@@ -348,23 +351,28 @@ export default class Panel extends React.Component {
                 save={() => saveProject(this.state.project)}
                 new={this.loadNewProject.bind(this)}
               />
-              <div
+              {/* <div
                 className={classNames('content', {
                   dragging: UiState.navigationDragging,
                 })}
-              >
-                <SplitPane
+                style={{
+                  maxHeight: '200px',
+                }}
+              > */}
+{/*               
+              <Navigation
+                    tests={UiState.filteredTests}
+                    suites={this.state.project.suites}
+                    duplicateTest={this.state.project.duplicateTestCase}
+                  /> */}
+                {/* <SplitPane
                   split="vertical"
                   minSize={UiState.minNavigationWidth}
                   maxSize={UiState.maxNavigationWidth}
                   size={UiState.navigationWidth}
                   onChange={UiState.resizeNavigation}
-                >
-                  <Navigation
-                    tests={UiState.filteredTests}
-                    suites={this.state.project.suites}
-                    duplicateTest={this.state.project.duplicateTestCase}
-                  />
+                > */}
+
                   <Editor
                     url={this.state.project.url}
                     urls={this.state.project.urls}
@@ -372,9 +380,9 @@ export default class Panel extends React.Component {
                     test={UiState.displayedTest}
                     callstackIndex={UiState.selectedTest.stack}
                   />
-                </SplitPane>
+                {/* </SplitPane> */}
               </div>
-            </div>
+            {/* </div> */}
             <Console
               height={UiState.consoleHeight}
               restoreSize={UiState.restoreConsoleSize}

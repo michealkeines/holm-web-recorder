@@ -102,12 +102,12 @@ export default class Editor extends React.Component {
           }
           swapCommands={this.props.test ? this.props.test.swapCommands : null}
         />
-        <CommandForm
+        {/* <CommandForm
           command={UiState.selectedCommand}
           setCommand={this.handleCommandChange}
           isSelecting={UiState.isSelectingTarget}
           onSubmit={UiState.selectNextCommand}
-        />
+        /> */}
       </main>
     )
   }
