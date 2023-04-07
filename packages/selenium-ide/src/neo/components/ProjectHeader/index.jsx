@@ -63,7 +63,7 @@ export default class ProjectHeader extends React.Component {
           }${this.props.changed ? '*' : ''}`}
         />
         <div>
-          <span className="title-prefix">Project: </span>
+          <span className="title-prefix">Recording Session: </span>
           <ContentEditable
             className="title"
             onKeyDown={this.handleKeyDown}
@@ -85,7 +85,7 @@ export default class ProjectHeader extends React.Component {
             unsaved={this.props.changed}
             onClick={this.props.save}
           />
-          <ListMenu
+          {/* <ListMenu
             width={250}
             padding={-5}
             opener={<MoreButton canFocus={true} aria-label="More options" />}
@@ -109,7 +109,7 @@ export default class ProjectHeader extends React.Component {
                 UiState.keyboardShortcutsEnabled ? 'Disable' : 'Enable'
               } the Keyboard Shortcuts`}
             </ListMenuItem>
-          </ListMenu>
+          </ListMenu> */}
         </span>
       </div>
     )
