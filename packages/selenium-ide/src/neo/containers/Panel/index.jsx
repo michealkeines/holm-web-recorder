@@ -353,18 +353,18 @@ export default class Panel extends React.Component {
                   dragging: UiState.navigationDragging,
                 })}
               >
-                <SplitPane
+                {/* <SplitPane
                   split="vertical"
                   minSize={UiState.minNavigationWidth}
                   maxSize={UiState.maxNavigationWidth}
                   size={UiState.navigationWidth}
                   onChange={UiState.resizeNavigation}
-                >
-                  <Navigation
+                > */}
+                  {/* <Navigation
                     tests={UiState.filteredTests}
                     suites={this.state.project.suites}
                     duplicateTest={this.state.project.duplicateTestCase}
-                  />
+                  /> */}
                   <Editor
                     url={this.state.project.url}
                     urls={this.state.project.urls}
@@ -372,13 +372,13 @@ export default class Panel extends React.Component {
                     test={UiState.displayedTest}
                     callstackIndex={UiState.selectedTest.stack}
                   />
-                </SplitPane>
+                {/* </SplitPane> */}
               </div>
             </div>
-            <Console
+            {/* <Console
               height={UiState.consoleHeight}
               restoreSize={UiState.restoreConsoleSize}
-            />
+            /> */}
           </SplitPane>
           <Modal
             project={this.state.project}

@@ -55,7 +55,7 @@ class UiState {
   @observable
   minConsoleHeight = 30
   @observable
-  minContentHeight = 460
+  minContentHeight = 200
   @observable
   minNavigationWidth = 180
   @observable

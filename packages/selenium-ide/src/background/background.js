@@ -106,25 +106,23 @@ function openWindowFromStorageResolution() {
         opts.left = storage.origin.left
       }
       return browser.windows.create(
-        Object.assign(
-          {
-            url: browser.extension.getURL('index.html'),
-            type: 'popup',
-          },
-          opts
-        )
+        {
+          url: browser.extension.getURL('index.html'),
+          type: 'popup',
+          height: 300,
+          width: 550,
+        }
       )
     })
     .catch(e => {
       console.error(e) // eslint-disable-line no-console
       return browser.windows.create(
-        Object.assign(
-          {
-            url: browser.extension.getURL('index.html'),
-            type: 'popup',
-          },
-          opts
-        )
+        {
+          url: browser.extension.getURL('index.html'),
+          type: 'popup',
+          height: 300,
+          width: 550,
+        }
       )
     })
 }

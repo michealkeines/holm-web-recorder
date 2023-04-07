@@ -60,7 +60,7 @@ export default class ToolBar extends React.Component {
       UiState.selectedCommand && UiState.selectedCommand.isValid
     return (
       <div className="toolbar">
-        <PlayAll
+        {/* <PlayAll
           isActive={!PlaybackState.paused && PlaybackState.isPlayingSuite}
           disabled={UiState.isRecording}
           onClick={this.playAll}
@@ -84,7 +84,7 @@ export default class ToolBar extends React.Component {
               ? 'Run all tests in suite'
               : 'Run all tests'
           }
-        />
+        /> */}
         <PlayCurrent
           isActive={!PlaybackState.paused && PlaybackState.isPlayingTest}
           disabled={
@@ -120,10 +120,10 @@ export default class ToolBar extends React.Component {
             onClick={PlaybackState.pauseOrResume}
           />
         ) : null}
-        <StepInto
+        {/* <StepInto
           disabled={!isCommandValid || UiState.isRecording}
           onClick={PlaybackState.stepOver}
-        />
+        /> */}
         <GaugeMenu
           opener={<SpeedGauge speed={UiState.gaugeSpeed} />}
           value={PlaybackState.delay}
@@ -131,14 +131,14 @@ export default class ToolBar extends React.Component {
           onChange={PlaybackState.setDelay}
         />
         <div className="flexer" />
-        <DisableBreakpoints
+        {/* <DisableBreakpoints
           isActive={PlaybackState.breakpointsDisabled}
           onClick={PlaybackState.toggleDisableBreakpoints}
         />
         <PauseExceptions
           isActive={PlaybackState.pauseOnExceptions}
           onClick={PlaybackState.togglePauseOnExceptions}
-        />
+        /> */}
         <div className="sep" />
         <Record
           disabled={PlaybackState.isPlaying || !UiState.selectedTest.test}

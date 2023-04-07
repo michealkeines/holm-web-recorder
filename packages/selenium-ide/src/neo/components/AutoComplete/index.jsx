@@ -66,7 +66,7 @@ export default class AutoComplete extends React.Component {
                   bottom: '0',
                   right: '5px',
                   margin: 'auto 0',
-                  fontSize: '16px',
+                  fontSize: '20px',
                   height: '16px',
                   color: '#a3a3a3',
                   cursor: 'pointer',
