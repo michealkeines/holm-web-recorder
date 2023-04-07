@@ -89,7 +89,7 @@ class WelcomeDialogContents extends React.Component {
         renderTitle={() => (
           <div>
             <div className="welcome-dialog__title">
-              Welcome to Selenium IDE!
+              Holm Web Recorder
             </div>
             <div className="welcome-dialog__subtitle">
               Version {project.version}
@@ -98,7 +98,7 @@ class WelcomeDialogContents extends React.Component {
         )}
         renderFooter={() => (
           <p>
-            To learn more on Selenium IDE and how to use it visit the{' '}
+            Holm Web Recorder uses Selenium internally, visit selenium for guides{' '}
             <a
               href="https://www.seleniumhq.org/selenium-ide/"
               target="_blank"
@@ -120,17 +120,17 @@ class WelcomeDialogContents extends React.Component {
                 Record a new test in a new project
               </a>
             </li>
-            <li className="file-open">
+            {/* <li className="file-open">
               <OpenInput
                 onFileSelected={this.openProject}
                 labelMarkup={<div>Open an existing project</div>}
               />
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <a onClick={this.createNewProject}>Create a new project</a>
-            </li>
+            </li> */}
             <li>
-              <a onClick={this.dismiss}>Close Selenium IDE</a>
+              <a onClick={this.dismiss}>Close</a>
             </li>
           </ul>
         </div>
