@@ -66,8 +66,8 @@ class BaseUrlDialogContents extends React.Component {
       <DialogContainer
         title={
           this.props.isInvalid
-            ? 'Project base URL is invalid!'
-            : "Set your project's base URL"
+            ? 'Session base URL is invalid!'
+            : "Set your Session's base URL"
         }
         type={this.props.isInvalid ? 'warn' : 'info'}
         buttons={[
@@ -91,7 +91,7 @@ class BaseUrlDialogContents extends React.Component {
       >
         <p>
           Before you can start recording, you must specify a valid base URL for
-          your project. Your tests will start by navigating to this URL.
+          your Sesion. Your tests will start by navigating to this URL.
         </p>
         <LabelledInput
           name="baseUrl"

@@ -23,7 +23,7 @@ import UiState from '../../../stores/view/UiState'
 import project from '../../../../../package.json'
 import Modal from '../../Modal'
 import DialogContainer from '../Dialog'
-import logoFile from '../../../assets/images/selenium_blue_white32@3x.svg'
+import logoFile from '../../../assets/images/holm.png'
 import { OpenInput } from '../../ActionButtons/Open'
 import './style.css'
 
@@ -117,7 +117,7 @@ class WelcomeDialogContents extends React.Component {
           <ul className="welcome-dialog__options">
             <li>
               <a onClick={this.startRecordingInNewProject}>
-                Record a new test in a new project
+                Record Login Sequence
               </a>
             </li>
             {/* <li className="file-open">
