@@ -3,7 +3,7 @@ var handleMessage = (function() {
   var circle = document.getElementById('circle')
   var img = document.getElementById('ide-img')
   img.src = (window.chrome ? chrome : browser).runtime.getURL(
-    '/icons/icon_light128.png'
+    '/icons/holm128.ico'
   )
   var lastTimeoutHandle = 0
 

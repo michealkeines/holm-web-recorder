@@ -74,40 +74,30 @@ class RenameDialogContents extends React.Component {
   render() {
     const content = {
       title: this.props.isNewTest
-        ? 'Name your new test'
+        ? 'Output File'
         : this.props.type === 'project'
-          ? 'Name your new project'
+          ? 'Recorder Session'
           : `${this.state.isRenaming ? 'Rename' : 'Add new'} ${
-              this.state.type
+              this.state.type === 'project' ? 'Session' : 'Output'
             }`,
       bodyTop: this.props.isNewTest ? (
         <span id="renameDescription">
-          Please provide a name for your new test.
+          Please provide a name for your output file.
         </span>
       ) : this.props.type === 'project' ? (
         <span id="renameDescription">
-          Please provide a name for your new project.
+          Please provide a name for your new Session.
         </span>
       ) : (
         <span
           className="hidden"
           id="renameDescription"
-        >{`Please provide a name for your ${this.state.type}.`}</span>
+        >{`Please provide a name for your Session.`}</span>
       ),
-      bodyBottom: this.props.isNewTest ? (
-        <span>
-          You can change it at any time by clicking the{' '}
-          <span className={classNames('si-more', 'more-icon')} /> icon next to
-          its name in the tests panel.
-        </span>
-      ) : this.props.type === 'project' ? (
-        <span>
-          You can change the name of your project at any time by clicking it and
-          entering a new name.
-        </span>
-      ) : (
-        undefined
-      ),
+      bodyBottom:
+       ( <span>
+          You can change it at any time.
+        </span>),
       submitButton:
         this.props.isNewTest || this.props.type === 'project'
           ? 'OK'
@@ -117,7 +107,7 @@ class RenameDialogContents extends React.Component {
       cancelButton: this.props.isNewTest ? 'later' : 'cancel',
       inputLabel: this.props.isNewTest
         ? 'test name'
-        : this.state.type + ' name',
+        : (this.state.type === 'project'? 'Session' : 'File') + ' name',
     }
     return (
       <DialogContainer
@@ -151,7 +141,7 @@ class RenameDialogContents extends React.Component {
       >
         {content.bodyTop}
         <LabelledInput
-          name={this.state.type + 'Name'}
+          name={(this.state.type === 'project'? 'Session' : 'File') + 'Name'}
           label={content.inputLabel}
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
@@ -159,7 +149,7 @@ class RenameDialogContents extends React.Component {
         />
         {!this.state.valid && (
           <span className="message">
-            A {this.props.type} with this name already exists
+            A {(this.state.type === 'project'? 'Session' : 'File')} with this name already exists
           </span>
         )}
         {content.bodyBottom}

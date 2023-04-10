@@ -109,7 +109,7 @@ function openWindowFromStorageResolution() {
         {
           url: browser.extension.getURL('index.html'),
           type: 'popup',
-          height: 300,
+          height: 500,
           width: 550,
         }
       )
@@ -120,7 +120,7 @@ function openWindowFromStorageResolution() {
         {
           url: browser.extension.getURL('index.html'),
           type: 'popup',
-          height: 300,
+          height: 500,
           width: 550,
         }
       )
