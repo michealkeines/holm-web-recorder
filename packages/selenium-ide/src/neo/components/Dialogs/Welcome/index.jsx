@@ -120,12 +120,12 @@ class WelcomeDialogContents extends React.Component {
                 Record Login Sequence
               </a>
             </li>
-            {/* <li className="file-open">
+            <li className="file-open">
               <OpenInput
                 onFileSelected={this.openProject}
-                labelMarkup={<div>Open an existing project</div>}
+                labelMarkup={<div>Open an existing Recording</div>}
               />
-            </li> */}
+            </li>
             {/* <li>
               <a onClick={this.createNewProject}>Create a new project</a>
             </li> */}
