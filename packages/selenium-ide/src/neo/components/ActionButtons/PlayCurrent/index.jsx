@@ -25,7 +25,7 @@ export default class PlayCurrentButton extends React.Component {
   render() {
     return (
       <ActionButton
-        data-tip={`<p>Run current test <span style="color: #929292;padding-left: 5px;">${
+        data-tip={`<p>Run Current Recorded Session <span style="color: #929292;padding-left: 5px;">${
           !UiState.keyboardShortcutsEnabled
             ? ''
             : parse('r', { primaryKey: true })

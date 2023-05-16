@@ -104,12 +104,12 @@ export default class ToolBar extends React.Component {
             isActive={PlaybackState.paused}
             data-tip={
               !PlaybackState.paused
-                ? `<p>Pause test execution <span style="color: #929292;padding-left: 5px;">${
+                ? `<p>Pause Session execution <span style="color: #929292;padding-left: 5px;">${
                     !UiState.keyboardShortcutsEnabled
                       ? ''
                       : parse('p', { primaryKey: true })
                   }</span></p>`
-                : `<p>Resume test execution <span style="color: #929292;padding-left: 5px;">${
+                : `<p>Resume Session execution <span style="color: #929292;padding-left: 5px;">${
                     !UiState.keyboardShortcutsEnabled
                       ? ''
                       : parse('p', { primaryKey: true })

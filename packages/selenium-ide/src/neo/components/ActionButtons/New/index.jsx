@@ -26,14 +26,14 @@ export default class NewButton extends React.Component {
     const props = { ...this.props }
     return (
       <ActionButton
-        data-tip={`<p>Create new project <span style="color: #929292;padding-left: 5px;">${
+        data-tip={`<p>Create New Session <span style="color: #929292;padding-left: 5px;">${
           !UiState.keyboardShortcutsEnabled
             ? ''
             : parse('n', { primaryKey: true, shiftKey: true })
         }</span></p>`}
         {...props}
         className={classNames('si-new-project', this.props.className)}
-        aria-label="Create new project"
+        aria-label="Create New Session"
       /> // eslint-disable-line react/prop-types
     )
   }
