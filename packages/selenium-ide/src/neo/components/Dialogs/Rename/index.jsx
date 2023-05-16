@@ -106,7 +106,7 @@ class RenameDialogContents extends React.Component {
             : 'add',
       cancelButton: this.props.isNewTest ? 'later' : 'cancel',
       inputLabel: this.props.isNewTest
-        ? 'test name'
+        ? 'session name'
         : (this.state.type === 'project'? 'Session' : 'File') + ' name',
     }
     return (

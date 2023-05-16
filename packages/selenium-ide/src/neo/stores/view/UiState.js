@@ -404,9 +404,9 @@ class UiState {
   nameNewTest(isEnabled = true) {
     const test = this.selectedTest.test
     if (isEnabled && test.name === 'Untitled' && !test.nameDialogShown) {
-      ModalState.renameTest(test.name, { isNewTest: true }).then(name => {
-        test.setName(name)
-      })
+      // ModalState.renameTest(test.name, { isNewTest: true }).then(name => {
+      //   test.setName(name)
+      // })
       test.nameDialogShown = true
     }
   }

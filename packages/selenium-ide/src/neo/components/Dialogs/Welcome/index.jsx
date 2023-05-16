@@ -92,7 +92,7 @@ class WelcomeDialogContents extends React.Component {
               Holm Web Recorder
             </div>
             <div className="welcome-dialog__subtitle">
-              Version {project.version}
+              Version 1.0.0
             </div>
           </div>
         )}

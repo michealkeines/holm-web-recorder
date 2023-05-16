@@ -25,7 +25,7 @@ export default class StopButton extends React.Component {
   render() {
     return (
       <ActionButton
-        data-tip={`<p>Stop test execution <span style="color: #929292;padding-left: 5px;">${
+        data-tip={`<p>Stop Session execution <span style="color: #929292;padding-left: 5px;">${
           !UiState.keyboardShortcutsEnabled
             ? ''
             : parse('.', { primaryKey: true })

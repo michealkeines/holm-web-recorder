@@ -243,7 +243,7 @@ export default class Panel extends React.Component {
       const choseProceed = await ModalState.showAlert({
         title: 'Create without saving',
         description:
-          'Are you sure you would like to create a new project without saving the current one?',
+          'Are you sure you would like to create a new Session without saving the current one?',
         confirmLabel: 'proceed',
         cancelLabel: 'cancel',
       })
@@ -255,7 +255,7 @@ export default class Panel extends React.Component {
       const choseProceed = await ModalState.showAlert({
         title: 'Stop recording',
         description:
-          'Leaving this project and creating a new one will stop the recording process. Would you like to continue?',
+          'Leaving this Session and creating a new one will stop the recording process. Would you like to continue?',
         confirmLabel: 'proceed',
         cancelLabel: 'cancel',
       })
@@ -280,7 +280,7 @@ export default class Panel extends React.Component {
       const choseProceed = await ModalState.showAlert({
         title: 'Load without saving',
         description:
-          'Are you sure you would like to load a new project without saving the current one?',
+          'Are you sure you would like to load a new Session without saving the current one?',
         confirmLabel: 'proceed',
         cancelLabel: 'cancel',
       })
@@ -292,7 +292,7 @@ export default class Panel extends React.Component {
       const choseProceed = await ModalState.showAlert({
         title: 'Stop recording',
         description:
-          'Leaving this project and loading a new one will stop the recording process. Would you like to continue?',
+          'Leaving this Session and loading a new one will stop the recording process. Would you like to continue?',
         confirmLabel: 'proceed',
         cancelLabel: 'cancel',
       })
