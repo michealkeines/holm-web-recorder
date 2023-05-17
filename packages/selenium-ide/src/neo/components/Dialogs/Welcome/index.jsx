@@ -89,24 +89,24 @@ class WelcomeDialogContents extends React.Component {
         renderTitle={() => (
           <div>
             <div className="welcome-dialog__title">
-              Holm Web Recorder
+              Holm Security - Web Recorder
             </div>
             <div className="welcome-dialog__subtitle">
-              Version 1.0.0
+              Record the authentication sequence to find vulnerabilities behind login.
             </div>
           </div>
         )}
         renderFooter={() => (
           <p>
-            Holm Web Recorder uses Selenium internally, visit selenium for guides{' '}
+            <b>Holm Security-Web Recorder</b> is a part of Holm Security and Holm Security Vulnerability Management Platform.<br/>Learn more on{' '}
             <a
               href="https://www.seleniumhq.org/selenium-ide/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              the Selenium IDE project page
+              How to scan a web application behind login,
             </a>
-            .
+            or visit www.holmsecurity.com.
           </p>
         )}
         modalTitle={WelcomeDialogContents.modalTitleElement}
@@ -117,21 +117,21 @@ class WelcomeDialogContents extends React.Component {
           <ul className="welcome-dialog__options">
             <li>
               <a onClick={this.startRecordingInNewProject}>
-                Record Login Sequence
+                Record new login session
               </a>
             </li>
             <li className="file-open">
               <OpenInput
                 onFileSelected={this.openProject}
-                labelMarkup={<div>Open an existing Recording</div>}
+                labelMarkup={<div>Open existing recorded session</div>}
               />
             </li>
             {/* <li>
               <a onClick={this.createNewProject}>Create a new project</a>
             </li> */}
-            <li>
+            {/* <li>
               <a onClick={this.dismiss}>Close</a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </DialogContainer>
