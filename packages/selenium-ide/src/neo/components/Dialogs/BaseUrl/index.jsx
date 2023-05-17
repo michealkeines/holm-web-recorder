@@ -71,9 +71,6 @@ class BaseUrlDialogContents extends React.Component {
         }
         type={this.props.isInvalid ? 'warn' : 'info'}
         buttons={[
-          <FlatButton onClick={this.props.cancel} key="cancel">
-            cancel
-          </FlatButton>,
           <FlatButton
             type="submit"
             disabled={!this.urlRegex.test(this.state.url)}
@@ -82,25 +79,29 @@ class BaseUrlDialogContents extends React.Component {
             }}
             key="ok"
           >
-            {this.props.confirmLabel || 'confirm'}
+            {/* {this.props.confirmLabel || 'confirm'} */}
+            START RECORDING
           </FlatButton>,
+          <FlatButton onClick={this.props.cancel} key="cancel">
+          BACK
+        </FlatButton>
         ]}
         onRequestClose={this.props.cancel}
         modalTitle={BaseUrlDialogContents.modalTitleElement}
         modalDescription={BaseUrlDialogContents.modalDescriptionElement}
       >
         <p>
-          Before you can start recording, you must specify a valid base URL for
-          your Sesion. Your tests will start by navigating to this URL.
+          Specify the URL to start the recording from in order to perform the complete login sequence.<br/>Remember that you want to record all the steps required to successfully be authenticated to the web application.
         </p>
         <LabelledInput
           name="baseUrl"
-          label="base url"
-          placeholder="https://www.seleniumhq.org/"
+          label="url"
+          placeholder="https://www.holmsecurity.com/"
           value={this.state.url}
           onChange={this.onUrlChange}
           autoFocus
         />
+        <p>Note: Do not record any more steps than required. For example, do not record any logout action which will remove the session.</p>
       </DialogContainer>
     )
   }

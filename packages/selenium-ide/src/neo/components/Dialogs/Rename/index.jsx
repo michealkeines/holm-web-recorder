@@ -86,17 +86,24 @@ class RenameDialogContents extends React.Component {
         </span>
       ) : this.props.type === 'project' ? (
         <span id="renameDescription">
-          Please provide a name for your new Session.
+          Please provide the name of this recorded session.
         </span>
       ) : (
         <span
           className="hidden"
           id="renameDescription"
-        >{`Please provide a name for your Session.`}</span>
+        >{`Please provide the name of this recorded session.`}</span>
       ),
       bodyBottom:
        ( <span>
-          You can change it at any time.
+          Save and upload this session file to your Security Center account in order to scan it for vulnerabilities.<br/>Read more on {' '}
+            <a
+              href="https://www.holmsecurity.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              How to scan a web application behind login.
+            </a>
         </span>),
       submitButton:
         this.props.isNewTest || this.props.type === 'project'
@@ -115,13 +122,6 @@ class RenameDialogContents extends React.Component {
         type={this.state.valid ? 'info' : 'warn'}
         buttons={[
           <FlatButton
-            disabled={this.props.isNewTest && !!this.state.value}
-            onClick={this.props.cancel}
-            key="cancel"
-          >
-            {content.cancelButton}
-          </FlatButton>,
-          <FlatButton
             type="submit"
             disabled={!this.state.value || !this.state.valid}
             onClick={() => {
@@ -132,7 +132,16 @@ class RenameDialogContents extends React.Component {
             }}
             key="ok"
           >
-            {content.submitButton}
+            {/* {content.submitButton} */}
+            OK
+          </FlatButton>,
+          <FlatButton
+            disabled={this.props.isNewTest && !!this.state.value}
+            onClick={this.props.cancel}
+            key="cancel"
+          >
+            {/* {content.cancelButton} */}
+            BACK
           </FlatButton>,
         ]}
         onRequestClose={this.props.cancel}
