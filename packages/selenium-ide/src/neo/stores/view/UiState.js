@@ -125,8 +125,10 @@ class UiState {
     this.windowSession = WindowSession
     // Dialog buttons are rendered with "action | cancel" layout on Windows
     // On other platforms default "cancel | action" layout is used
-    this.dialogButtonDirection =
-      userAgent.os.name === 'Windows' ? 'reversed' : 'normal'
+    // we dont want this
+    // this.dialogButtonDirection =
+     // userAgent.os.name === 'Windows' ? 'reversed' : 'normal'
+     this.dialogButtonDirection = 'normal'
   }
 
   @action.bound
