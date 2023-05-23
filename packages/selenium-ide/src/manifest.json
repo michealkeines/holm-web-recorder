@@ -1,7 +1,7 @@
 {
-  "description": "Holm Web Recorder, records complex login actions with replay option.",
+  "description": "Holm Security - Web Recorder, records complex login actions with replay option.",
   "manifest_version": 2,
-  "name": "Holm Web Recorder",
+  "name": "Holm Security - Web Recorder",
   "version": "1.0.0",
   "version_name": "1.0.0",
   "homepage_url": "https://sc.holmsecurity.com/",
@@ -17,7 +17,7 @@
       "32": "icons/holm32.ico",
       "64": "icons/holm64.ico"
     },
-    "default_title": "Holm Web Recorder"
+    "default_title": "Holm Security - Web Recorder"
   },
   "permissions": [
     "tabs",
