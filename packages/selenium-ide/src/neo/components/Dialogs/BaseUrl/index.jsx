@@ -20,6 +20,7 @@ import PropTypes from 'prop-types'
 import Modal from '../../Modal'
 import DialogContainer from '../Dialog'
 import LabelledInput from '../../LabelledInput'
+import logoFile from '../../../assets/images/holm.png'
 import FlatButton from '../../FlatButton'
 
 export default class BaseUrlDialog extends React.Component {
@@ -70,6 +71,17 @@ class BaseUrlDialogContents extends React.Component {
             : "Set your Session's base URL"
         }
         type={this.props.isInvalid ? 'warn' : 'info'}
+        renderImage={() => <img height={36} alt="se-ide-logo" src={logoFile} />}
+        renderTitle={() => (
+          <div>
+            <div className="welcome-dialog__title">
+              <b>Holm Security - Web Recorder</b>
+            </div>
+            <div className="welcome-dialog__subtitle">
+              Record the login sequence session to find vulnerabilities behind login.
+            </div>
+          </div>
+        )}
         buttons={[
           <FlatButton
             type="submit"
@@ -101,7 +113,7 @@ class BaseUrlDialogContents extends React.Component {
           onChange={this.onUrlChange}
           autoFocus
         />
-        <p>Note: Do not record any more steps than required. For example, do not record any logout action which will remove the session.</p>
+        <p>Note: Do not record any more steps than required. For example, do not record any logout action which can later impact the session.</p>
       </DialogContainer>
     )
   }

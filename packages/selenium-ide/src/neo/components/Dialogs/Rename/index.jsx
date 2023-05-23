@@ -22,6 +22,7 @@ import FlatButton from '../../FlatButton'
 import LabelledInput from '../../LabelledInput'
 import DialogContainer from '../Dialog'
 import classNames from 'classnames'
+import logoFile from '../../../assets/images/holm.png'
 import './style.css'
 
 export default class RenameDialog extends React.Component {
@@ -86,7 +87,7 @@ class RenameDialogContents extends React.Component {
         </span>
       ) : this.props.type === 'project' ? (
         <span id="renameDescription">
-          Please provide the name of this recorded session.
+          Please provide the name of this login sequence session.
         </span>
       ) : (
         <span
@@ -96,7 +97,7 @@ class RenameDialogContents extends React.Component {
       ),
       bodyBottom:
        ( <span>
-          Save and upload this session file to your Security Center account in order to scan it for vulnerabilities.<br/>Read more on {' '}
+          Save and upload this session file to your Security Center account in order to scan the web application for vulnerabilities. Learn more on {' '}
             <a
               href="https://www.holmsecurity.com"
               target="_blank"
@@ -120,6 +121,17 @@ class RenameDialogContents extends React.Component {
       <DialogContainer
         title={content.title}
         type={this.state.valid ? 'info' : 'warn'}
+        renderImage={() => <img height={36} alt="se-ide-logo" src={logoFile} />}
+        renderTitle={() => (
+          <div>
+            <div className="welcome-dialog__title">
+              <b>Holm Security - Web Recorder</b>
+            </div>
+            <div className="welcome-dialog__subtitle">
+              Record the login sequence session to find vulnerabilities behind login.
+            </div>
+          </div>
+        )}
         buttons={[
           <FlatButton
             type="submit"

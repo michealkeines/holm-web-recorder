@@ -554,7 +554,7 @@ function doDelay() {
 
 function notifyWaitDeprecation(command) {
   reportError(
-    `${command} is deprecated, Holm Web Recorder waits automatically instead`,
+    `${command} is deprecated, Holm Security - Web Recorder waits automatically instead`,
     true
   )
 }
