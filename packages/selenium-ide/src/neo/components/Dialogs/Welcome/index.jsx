@@ -92,28 +92,40 @@ class WelcomeDialogContents extends React.Component {
               Holm Security - Web Recorder
             </div>
             <div className="welcome-dialog__subtitle">
-              Record the authentication sequence to find vulnerabilities behind login.
+              Record the login sequence session to find vulnerabilities behind login.
             </div>
           </div>
         )}
         renderFooter={() => (
-          <p>
-            <b>Holm Security-Web Recorder</b> is a part of Holm Security and Holm Security Vulnerability Management Platform.<br/>Learn more on{' '}
+          <div class="full-footer">
+          <p class="medium-level-text">The recorded login sequence session can be uploaded to Security Center in order to find vulnerabilities behind the login for a web application. Learn more on{' '}
             <a
-              href="https://www.seleniumhq.org/selenium-ide/"
+              href="https://holmsecurity.com/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              How to scan a web application behind login,
+              How to scan a web application behind login.
             </a>
-            or visit www.holmsecurity.com.
           </p>
+          <p class="very-small-text">Built by {' '}
+            <a
+              href="https://holmsecurity.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Holm Security</a>, based on {' '}
+            <a
+              href="https://selenium.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Selenium IDE</a></p>
+          </div>
         )}
         modalTitle={WelcomeDialogContents.modalTitleElement}
         modalDescription={WelcomeDialogContents.modalDescriptionElement}
       >
         <div>
-          <div>What would you like to do?</div>
+          <div>The Web Recorder is a part of Holm Security Vulnerability Management Platform.</div><br/>
+          <div><b>What would you like to do?</b></div>
           <ul className="welcome-dialog__options">
             <li>
               <a onClick={this.startRecordingInNewProject}>

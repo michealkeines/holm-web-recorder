@@ -259,7 +259,7 @@ browser.runtime.onMessageExternal.addListener(
             sendResponse(true)
           })
         } else {
-          return sendResponse({ error: 'Holm Web Recorder is not active' })
+          return sendResponse({ error: 'Holm Security - Web Recorder is not active' })
         }
       })
     return true

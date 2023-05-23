@@ -71,7 +71,7 @@ function tryOverrideControl(req) {
   WindowSession.focusIDEWindow()
   return ModalState.showAlert({
     title: 'Assisted Control',
-    description: `${req.name} is trying to control Holm Web Recorder`,
+    description: `${req.name} is trying to control Holm Security - Web Recorder`,
     confirmLabel: 'Restart and Allow access',
     cancelLabel: 'Deny access',
   }).then(r => {
