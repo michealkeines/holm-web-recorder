@@ -22,6 +22,7 @@ import DialogContainer from '../Dialog'
 import LabelledInput from '../../LabelledInput'
 import logoFile from '../../../assets/images/holm.png'
 import FlatButton from '../../FlatButton'
+import './style.css'
 
 export default class BaseUrlDialog extends React.Component {
   static propTypes = {
@@ -74,10 +75,10 @@ class BaseUrlDialogContents extends React.Component {
         renderImage={() => <img height={36} alt="se-ide-logo" src={logoFile} />}
         renderTitle={() => (
           <div>
-            <div className="welcome-dialog__title">
-              <b>Holm Security - Web Recorder</b>
+            <div className="main-title">
+              Holm Security - Web Recorder
             </div>
-            <div className="welcome-dialog__subtitle">
+            <div className="main-subtitle">
               Record the login sequence session to find vulnerabilities behind login.
             </div>
           </div>
