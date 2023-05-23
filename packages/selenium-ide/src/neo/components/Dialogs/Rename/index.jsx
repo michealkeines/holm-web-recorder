@@ -97,7 +97,7 @@ class RenameDialogContents extends React.Component {
       ),
       bodyBottom:
        ( <span>
-          Save and upload this session file to your Security Center account in order to scan the web application for vulnerabilities. Learn more on {' '}
+          Save and upload this session file to your Security Center account in order to scan the web application for vulnerabilities.<br/>Learn more on {' '}
             <a
               href="https://www.holmsecurity.com"
               target="_blank"
@@ -173,7 +173,7 @@ class RenameDialogContents extends React.Component {
             A {(this.state.type === 'project'? 'Session' : 'File')} with this name already exists
           </span>
         )}
-        {content.bodyBottom}
+        <div class="low-bottom">{content.bodyBottom}</div>
       </DialogContainer>
     )
   }

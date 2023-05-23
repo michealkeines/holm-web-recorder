@@ -4,6 +4,10 @@
 }
 
 .main-subtitle {
-font-size: 12px;
-font-weight: normal;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.bottom-text {
+    font-size: 12px !important;
 }

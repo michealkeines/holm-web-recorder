@@ -114,7 +114,7 @@ class BaseUrlDialogContents extends React.Component {
           onChange={this.onUrlChange}
           autoFocus
         />
-        <p>Note: Do not record any more steps than required. For example, do not record any logout action which can later impact the session.</p>
+        <p class='bottom-text'>Note: Do not record any more steps than required. For example, do not record any logout action which can later impact the session.</p>
       </DialogContainer>
     )
   }
