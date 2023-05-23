@@ -14,3 +14,13 @@
   color: #48aaff;
   cursor: pointer;
 }
+
+.main-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.main-subtitle {
+  font-size: 12px;
+  font-weight: normal;
+}

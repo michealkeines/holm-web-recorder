@@ -124,10 +124,10 @@ class RenameDialogContents extends React.Component {
         renderImage={() => <img height={36} alt="se-ide-logo" src={logoFile} />}
         renderTitle={() => (
           <div>
-            <div className="welcome-dialog__title">
-              <b>Holm Security - Web Recorder</b>
+            <div className="main-title">
+              Holm Security - Web Recorder
             </div>
-            <div className="welcome-dialog__subtitle">
+            <div className="main-subtitle">
               Record the login sequence session to find vulnerabilities behind login.
             </div>
           </div>
