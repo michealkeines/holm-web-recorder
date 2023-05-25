@@ -137,7 +137,7 @@ function showNoTabAvailableDialog() {
   ModalState.showAlert({
     title: 'Tab not found',
     description:
-      'No tab is available for this test case, either continue recording it, or play it back.',
+      'No tab is available for this recorded sequence, either continue recording it, or play it back.',
     confirmLabel: 'close',
   })
 }
