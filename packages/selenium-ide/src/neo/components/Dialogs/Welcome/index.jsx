@@ -124,27 +124,31 @@ class WelcomeDialogContents extends React.Component {
         modalDescription={WelcomeDialogContents.modalDescriptionElement}
       >
         <div>
-          <div>The Web Recorder is a part of Holm Security Vulnerability Management Platform.</div><br/>
-          <div><b>What would you like to do?</b></div>
-          <ul className="welcome-dialog__options">
-            <li>
-              <a onClick={this.startRecordingInNewProject}>
-                Record new login session
-              </a>
-            </li>
-            <li className="file-open">
-              <OpenInput
-                onFileSelected={this.openProject}
-                labelMarkup={<div>Open existing recorded session</div>}
-              />
-            </li>
-            {/* <li>
-              <a onClick={this.createNewProject}>Create a new project</a>
-            </li> */}
-            {/* <li>
-              <a onClick={this.dismiss}>Close</a>
-            </li> */}
-          </ul>
+          <div className="welcome-dialog__heading">The Web Recorder is a part of Holm Security Vulnerability Management Platform.</div><br/>
+          <div>
+            <ul className="welcome-dialog__options">
+              <li>
+              <b className="what-like-to-do">What would you like to do?</b>
+              </li>
+              <li>
+                <a onClick={this.startRecordingInNewProject}>
+                  Record new login session
+                </a>
+              </li>
+              <li className="file-open">
+                <OpenInput
+                  onFileSelected={this.openProject}
+                  labelMarkup={<div>Open existing recorded session</div>}
+                />
+              </li>
+              {/* <li>
+                <a onClick={this.createNewProject}>Create a new project</a>
+              </li> */}
+              {/* <li>
+                <a onClick={this.dismiss}>Close</a>
+              </li> */}
+            </ul>
+          </div>
         </div>
       </DialogContainer>
     )
