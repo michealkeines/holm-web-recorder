@@ -26,9 +26,28 @@
   color: #FFFFFF;
 }
 
-.welcome-dialog .welcome-dialog__options {
-  position: relative;
-  padding: 8px 0;
+.welcome-dialog__heading {
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+
+  /* identical to box height, or 150% */
+
+  color: #505050;
+}
+
+.what-like-to-do {
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  line-height: 18px !important;
+
+  /* identical to box height */
+
+  color: #505050;
 }
 
 .welcome-dialog a,
@@ -54,5 +73,38 @@
 }
 
 .very-small-text {
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-style: normal;
+  font-weight: 400;
   font-size: 10px !important;
+  line-height: 21px !important;
+  
+  /* identical to box height, or 210% */
+  
+  color: #505050;  
+}
+
+.welcome-dialog__options {
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 27px;
+  padding-top: 0;
+
+  /* identical to box height, or 193% */
+
+  color: #56B0FF;
+}
+
+.medium-level-text {
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px !important;
+  line-height: 21px !important;
+
+  /* or 150% */
+
+  color: #505050;
 }
