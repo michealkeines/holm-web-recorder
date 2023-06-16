@@ -170,7 +170,7 @@ export function loadProject(project, file) {
     })
   }
   return loadAsText(file).then(contents => {
-    if (/\.side$/i.test(file.name) || /\.json$/i.test(file.name)) {
+    if (file.name.endsWith('.side') || file.name.endsWith('.json')) {
       loadJSProject(project, UpgradeProject(JSON.parse(contents)))
     } else {
       try {

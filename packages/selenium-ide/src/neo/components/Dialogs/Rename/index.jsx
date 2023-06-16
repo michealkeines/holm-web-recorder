@@ -73,14 +73,21 @@ class RenameDialogContents extends React.Component {
     })
   }
   render() {
+    let temp_title = "";
+
+    if (this.props.isNewTest) {
+      temp_title = 'Output File';
+    } else {
+      if (this.props.type === 'project') {
+        temp_title = 'Recorder Session';
+      } else {
+        temp_title = `${this.state.isRenaming ? 'Rename' : 'Add new'} ${
+          this.state.type === 'project' ? 'Session' : 'Output'
+        }`;
+      }
+    }
     const content = {
-      title: this.props.isNewTest
-        ? 'Output File'
-        : this.props.type === 'project'
-          ? 'Recorder Session'
-          : `${this.state.isRenaming ? 'Rename' : 'Add new'} ${
-              this.state.type === 'project' ? 'Session' : 'Output'
-            }`,
+      title: temp_title,
       bodyTop: this.props.isNewTest ? (
         <span id="renameDescription">
           Please provide a name for your output file.
@@ -148,7 +155,7 @@ class RenameDialogContents extends React.Component {
             OK
           </FlatButton>,
           <FlatButton
-            disabled={this.props.isNewTest && !!this.state.value}
+            disabled={this.props.isNewTest && this.state.value}
             onClick={this.props.cancel}
             key="cancel"
           >

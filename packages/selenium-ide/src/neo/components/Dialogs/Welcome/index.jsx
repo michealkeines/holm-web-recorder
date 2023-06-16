@@ -97,8 +97,8 @@ class WelcomeDialogContents extends React.Component {
           </div>
         )}
         renderFooter={() => (
-          <div class="full-footer">
-          <p class="medium-level-text">The recorded login sequence session can be uploaded to Security Center in order to find vulnerabilities behind the login for a web application. Learn more on{' '}
+          <div className="full-footer">
+          <p className="medium-level-text">The recorded login sequence session can be uploaded to Security Center in order to find vulnerabilities behind the login for a web application. Learn more on{' '}
             <a
               href="https://holmsecurity.com/"
               target="_blank"
@@ -107,7 +107,7 @@ class WelcomeDialogContents extends React.Component {
               How to scan a web application behind login.
             </a>
           </p>
-          <p class="very-small-text">Built by {' '}
+          <p className="very-small-text">Built by {' '}
             <a
               href="https://holmsecurity.com/"
               target="_blank"
