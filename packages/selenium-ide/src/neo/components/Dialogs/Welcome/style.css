@@ -3,7 +3,6 @@
 }
 
 .welcome-dialog .welcome-dialog__title {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
@@ -15,7 +14,6 @@
 }
 
 .welcome-dialog .welcome-dialog__subtitle {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -27,7 +25,6 @@
 }
 
 .welcome-dialog__heading {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -39,7 +36,6 @@
 }
 
 .what-like-to-do {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal !important;
   font-weight: 700 !important;
   font-size: 14px !important;
@@ -73,7 +69,6 @@
 }
 
 .very-small-text {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal;
   font-weight: 400;
   font-size: 10px !important;
@@ -85,7 +80,6 @@
 }
 
 .welcome-dialog__options {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -98,7 +92,6 @@
 }
 
 .medium-level-text {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal;
   font-weight: 400;
   font-size: 14px !important;

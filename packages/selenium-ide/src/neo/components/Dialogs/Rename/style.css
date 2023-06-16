@@ -16,7 +16,6 @@
 }
 
 .main-title {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
@@ -28,7 +27,6 @@
 }
 
 .main-subtitle {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -44,7 +42,6 @@
 } */
 
 .low-info {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -54,7 +51,6 @@
 }
 
 .provideName {
-  font-family: 'Source Sans Pro', sans-serif !important;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
