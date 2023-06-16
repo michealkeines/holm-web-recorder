@@ -83,7 +83,7 @@ export default class CommandForm extends React.Component {
             <CommandInput
               id="command"
               name="command"
-              label="Command"
+              label="Action"
               value={
                 this.props.command
                   ? this.parseCommandName(this.props.command.command)
@@ -95,7 +95,7 @@ export default class CommandForm extends React.Component {
               }
             />
             <FlatButton
-              data-tip="<p>Enable/Disable command</p>"
+              data-tip="<p>Enable/Disable Action</p>"
               data-event="focus mouseenter"
               data-event-off="blur mouseleave"
               className={classNames(
@@ -156,7 +156,7 @@ export default class CommandForm extends React.Component {
             <TargetInput
               id="target"
               name="target"
-              label="Target"
+              label="Selector"
               value={this.props.command ? this.props.command.target : ''}
               targets={this.props.command ? this.props.command.targets : []}
               disabled={!this.props.command}
@@ -165,7 +165,7 @@ export default class CommandForm extends React.Component {
               }
             />
             <FlatButton
-              data-tip="<p>Select target in page</p>"
+              data-tip="<p>Pick Selector in page</p>"
               className={classNames('icon', 'si-select', {
                 active: this.props.isSelecting,
               })}
@@ -179,7 +179,7 @@ export default class CommandForm extends React.Component {
               onClick={this.handleSelect}
             />
             <FlatButton
-              data-tip="<p>Find target in page</p>"
+              data-tip="<p>Find Selector in page</p>"
               data-event="focus mouseenter"
               data-event-off="blur mouseleave"
               className="icon si-search"
