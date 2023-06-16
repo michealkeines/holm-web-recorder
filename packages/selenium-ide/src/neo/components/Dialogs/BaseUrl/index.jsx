@@ -103,7 +103,7 @@ class BaseUrlDialogContents extends React.Component {
         modalDescription={BaseUrlDialogContents.modalDescriptionElement}
       >
         <p className='specifyURL'>
-          Specify the URL to start the recording from in order to perform the complete login sequence.<br/>Remember that you want to record all the steps required to successfully be authenticated to the web application.
+          Specify the URL to start the recording from in order to perform the complete login session.<br/>Remember that you want to record all the steps required to successfully be authenticated to the web application.
         </p>
         <LabelledInput
           name="baseUrl"
@@ -113,7 +113,7 @@ class BaseUrlDialogContents extends React.Component {
           onChange={this.onUrlChange}
           autoFocus
         />
-        <p class='bottom-text'>Note: Do not record any more steps than required. For example, do not record any logout action which can later impact the session.</p>
+        <p class='bottom-text'>Note: Do not record any more steps than required. For example, do not record any logout action which can later impact the scanning.</p>
       </DialogContainer>
     )
   }
