@@ -92,7 +92,6 @@ class BaseUrlDialogContents extends React.Component {
             }}
             key="ok"
           >
-            {/* {this.props.confirmLabel || 'confirm'} */}
             START RECORDING
           </FlatButton>,
           <FlatButton onClick={this.props.cancel} key="cancel">

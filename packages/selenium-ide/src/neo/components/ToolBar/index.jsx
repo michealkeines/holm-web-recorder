@@ -60,31 +60,6 @@ export default class ToolBar extends React.Component {
       UiState.selectedCommand && UiState.selectedCommand.isValid
     return (
       <div className="toolbar">
-        {/* <PlayAll
-          isActive={!PlaybackState.paused && PlaybackState.isPlayingSuite}
-          disabled={UiState.isRecording}
-          onClick={this.playAll}
-          data-tip={
-            PlaybackState.canPlaySuite
-              ? `<p>Run all tests in suite <span style="color: #929292;padding-left: 5px;">${
-                  !UiState.keyboardShortcutsEnabled
-                    ? ''
-                    : parse('r', { primaryKey: true, shiftKey: true })
-                }</span></p>`
-              : `<p>Run all tests <span style="color: #929292;padding-left: 5px;">${
-                  !UiState.keyboardShortcutsEnabled
-                    ? ''
-                    : parse('r', { primaryKey: true, shiftKey: true })
-                }</span></p>`
-          }
-          data-event="focus mouseenter"
-          data-event-off="blur mouseleave"
-          aria-label={
-            PlaybackState.canPlaySuite
-              ? 'Run all tests in suite'
-              : 'Run all tests'
-          }
-        /> */}
         <PlayCurrent
           isActive={!PlaybackState.paused && PlaybackState.isPlayingTest}
           disabled={
@@ -120,10 +95,6 @@ export default class ToolBar extends React.Component {
             onClick={PlaybackState.pauseOrResume}
           />
         ) : null}
-        {/* <StepInto
-          disabled={!isCommandValid || UiState.isRecording}
-          onClick={PlaybackState.stepOver}
-        /> */}
         <GaugeMenu
           opener={<SpeedGauge speed={UiState.gaugeSpeed} />}
           value={PlaybackState.delay}
@@ -131,14 +102,6 @@ export default class ToolBar extends React.Component {
           onChange={PlaybackState.setDelay}
         />
         <div className="flexer" />
-        {/* <DisableBreakpoints
-          isActive={PlaybackState.breakpointsDisabled}
-          onClick={PlaybackState.toggleDisableBreakpoints}
-        />
-        <PauseExceptions
-          isActive={PlaybackState.pauseOnExceptions}
-          onClick={PlaybackState.togglePauseOnExceptions}
-        /> */}
         <div className="sep" />
         <Record
           disabled={PlaybackState.isPlaying || !UiState.selectedTest.test}

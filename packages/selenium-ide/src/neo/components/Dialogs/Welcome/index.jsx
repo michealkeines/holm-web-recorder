@@ -141,12 +141,6 @@ class WelcomeDialogContents extends React.Component {
                   labelMarkup={<div>Open existing recorded session</div>}
                 />
               </li>
-              {/* <li>
-                <a onClick={this.createNewProject}>Create a new project</a>
-              </li> */}
-              {/* <li>
-                <a onClick={this.dismiss}>Close</a>
-              </li> */}
             </ul>
           </div>
         </div>

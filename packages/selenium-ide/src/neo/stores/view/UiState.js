@@ -123,12 +123,7 @@ class UiState {
     })
     this.recorder = new BackgroundRecorder(WindowSession)
     this.windowSession = WindowSession
-    // Dialog buttons are rendered with "action | cancel" layout on Windows
-    // On other platforms default "cancel | action" layout is used
-    // we dont want this
-    // this.dialogButtonDirection =
-     // userAgent.os.name === 'Windows' ? 'reversed' : 'normal'
-     this.dialogButtonDirection = 'normal'
+    this.dialogButtonDirection = 'normal'
   }
 
   @action.bound
@@ -406,9 +401,6 @@ class UiState {
   nameNewTest(isEnabled = true) {
     const test = this.selectedTest.test
     if (isEnabled && test.name === 'Untitled' && !test.nameDialogShown) {
-      // ModalState.renameTest(test.name, { isNewTest: true }).then(name => {
-      //   test.setName(name)
-      // })
       test.nameDialogShown = true
     }
   }

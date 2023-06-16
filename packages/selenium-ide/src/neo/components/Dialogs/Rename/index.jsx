@@ -151,7 +151,6 @@ class RenameDialogContents extends React.Component {
             }}
             key="ok"
           >
-            {/* {content.submitButton} */}
             OK
           </FlatButton>,
           <FlatButton
@@ -159,7 +158,6 @@ class RenameDialogContents extends React.Component {
             onClick={this.props.cancel}
             key="cancel"
           >
-            {/* {content.cancelButton} */}
             BACK
           </FlatButton>,
         ]}

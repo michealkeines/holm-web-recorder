@@ -85,31 +85,6 @@ export default class ProjectHeader extends React.Component {
             unsaved={this.props.changed}
             onClick={this.props.save}
           />
-          {/* <ListMenu
-            width={250}
-            padding={-5}
-            opener={<MoreButton canFocus={true} aria-label="More options" />}
-          >
-            <ListMenuItem href="https://www.seleniumhq.org/selenium-ide/docs/en/introduction/command-line-runner/">
-              {'Running in CI'}
-            </ListMenuItem>
-            <ListMenuItem href="https://github.com/SeleniumHQ/selenium-ide/releases/latest">
-              {"What's new"}
-            </ListMenuItem>
-            <ListMenuItem href="https://www.seleniumhq.org/selenium-ide/docs/en/introduction/getting-started/">
-              {'Help'}
-            </ListMenuItem>
-            <ListMenuItem onClick={() => UiState.toggleBigSpacingEnabled()}>
-              {`Put ${
-                UiState.isBigSpacingEnabled ? 'normal' : 'more'
-              } space between letters and words.`}
-            </ListMenuItem>
-            <ListMenuItem onClick={() => UiState.toggleKeyboardShortcuts()}>
-              {`${
-                UiState.keyboardShortcutsEnabled ? 'Disable' : 'Enable'
-              } the Keyboard Shortcuts`}
-            </ListMenuItem>
-          </ListMenu> */}
         </span>
       </div>
     )
