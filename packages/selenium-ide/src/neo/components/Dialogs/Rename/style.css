@@ -39,6 +39,28 @@
   color: #FFFFFF;
 }
 
-.low-bottom {
+/* .low-bottom {
   font-size: 12px;
+} */
+
+.low-info {
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+
+  color: #505050;
+}
+
+.provideName {
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+
+  /* identical to box height */
+
+  color: #505050;
 }

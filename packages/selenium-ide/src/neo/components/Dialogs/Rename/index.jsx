@@ -86,7 +86,7 @@ class RenameDialogContents extends React.Component {
           Please provide a name for your output file.
         </span>
       ) : this.props.type === 'project' ? (
-        <span id="renameDescription">
+        <span id="renameDescription" className="provideName">
           Please provide the name of this login sequence session.
         </span>
       ) : (
@@ -96,7 +96,7 @@ class RenameDialogContents extends React.Component {
         >{`Please provide the name of this recorded session.`}</span>
       ),
       bodyBottom:
-       ( <span>
+       ( <span className="low-info">
           Save and upload this session file to your Security Center account in order to scan the web application for vulnerabilities.<br/>Learn more on {' '}
             <a
               href="https://www.holmsecurity.com"
