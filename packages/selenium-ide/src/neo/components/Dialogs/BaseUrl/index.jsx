@@ -33,7 +33,7 @@ export default class BaseUrlDialog extends React.Component {
   render() {
     return (
       <Modal
-        className="stripped"
+        className="stripped-big"
         isOpen={this.props.isSelectingUrl}
         modalTitle={BaseUrlDialogContents.modalTitleElement}
         modalDescription={BaseUrlDialogContents.modalDescriptionElement}

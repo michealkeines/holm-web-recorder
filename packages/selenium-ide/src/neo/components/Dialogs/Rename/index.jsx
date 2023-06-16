@@ -37,7 +37,7 @@ export default class RenameDialog extends React.Component {
   render() {
     return (
       <Modal
-        className={classNames('stripped', 'rename-dialog')}
+        className={classNames('stripped-mid', 'rename-dialog')}
         isOpen={this.props.isEditing}
         onRequestClose={this.props.cancel}
         modalTitle={RenameDialogContents.modalTitleElement}

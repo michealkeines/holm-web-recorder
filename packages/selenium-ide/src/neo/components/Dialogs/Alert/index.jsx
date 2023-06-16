@@ -64,7 +64,7 @@ export default class AlertDialog extends React.Component {
 
     return (
       <Modal
-        className={classNames('stripped', 'alert')}
+        className={classNames('stripped-alert')}
         isOpen={this.state.isOpen}
         onRequestClose={this.close.bind(this, false)}
         modalTitle={modalTitleElement}
