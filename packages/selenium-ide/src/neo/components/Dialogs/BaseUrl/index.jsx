@@ -103,7 +103,7 @@ class BaseUrlDialogContents extends React.Component {
         modalTitle={BaseUrlDialogContents.modalTitleElement}
         modalDescription={BaseUrlDialogContents.modalDescriptionElement}
       >
-        <p>
+        <p className='specifyURL'>
           Specify the URL to start the recording from in order to perform the complete login sequence.<br/>Remember that you want to record all the steps required to successfully be authenticated to the web application.
         </p>
         <LabelledInput

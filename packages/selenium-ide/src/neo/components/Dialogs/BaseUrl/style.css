@@ -23,5 +23,21 @@
 }
 
 .bottom-text {
-    font-size: 12px !important;
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px !important;
+
+    color: #505050;
+}
+
+.specifyURL {
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px !important;
+
+    color: #505050;
 }
