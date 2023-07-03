@@ -138,7 +138,7 @@ class WelcomeDialogContents extends React.Component {
               <li className="file-open">
                 <OpenInput
                   onFileSelected={this.openProject}
-                  labelMarkup={<div>Open existing recorded session</div>}
+                  labelMarkup={<a>Open existing recorded session</a>}
                 />
               </li>
             </ul>
