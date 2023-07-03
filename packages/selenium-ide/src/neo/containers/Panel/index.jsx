@@ -112,30 +112,28 @@ export default class Panel extends React.Component {
     this.keyDownHandler = window.document.body.onkeydown = this.handleKeyDown.bind(
       this
     )
-    if (isProduction) {
-      // the handler writes the size to the extension storage, which throws in development
-      this.resizeHandler = window.addEventListener(
-        'resize',
-        this.handleResize.bind(this, window)
-      )
-      this.quitHandler = window.addEventListener('beforeunload', e => {
-        if (project.modified) {
-          const confirmationMessage =
-            'You have some unsaved changes, are you sure you want to leave?'
+    // the handler writes the size to the extension storage, which throws in development
+    this.resizeHandler = window.addEventListener(
+      'resize',
+      this.handleResize.bind(this, window)
+    )
+    this.quitHandler = window.addEventListener('beforeunload', e => {
+      if (project.modified) {
+        const confirmationMessage =
+          'You have some unsaved changes, are you sure you want to leave?'
 
-          e.returnValue = confirmationMessage
-          return confirmationMessage
-        }
+        e.returnValue = confirmationMessage
+        return confirmationMessage
+      }
+    })
+    this.moveInterval = setInterval(() => {
+      storage.set({
+        origin: {
+          top: window.screenY,
+          left: window.screenX,
+        },
       })
-      this.moveInterval = setInterval(() => {
-        storage.set({
-          origin: {
-            top: window.screenY,
-            left: window.screenX,
-          },
-        })
-      }, 3000)
-    }
+    }, 3000)
   }
   handleResize(currWindow) {
     UiState.setWindowHeight(currWindow.innerHeight)
@@ -329,8 +327,8 @@ export default class Panel extends React.Component {
             split="horizontal"
             minSize={UiState.minContentHeight}
             maxSize={UiState.maxContentHeight}
-            size={UiState.windowHeight - UiState.consoleHeight}
-            onChange={size => UiState.resizeConsole(window.innerHeight - size)}
+            size={UiState.windowHeight}
+            onChange={this.size=UiState.windowHeight}
             style={{
               position: 'initial',
             }}
