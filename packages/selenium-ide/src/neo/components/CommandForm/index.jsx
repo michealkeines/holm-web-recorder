@@ -115,42 +115,6 @@ export default class CommandForm extends React.Component {
                 this.props.command ? this.props.command.toggleEnabled : null
               }
             />
-            <FlatButton
-              data-tip={
-                this.props.command && this.props.command.opensWindow
-                  ? '<p>Modify new window configuration</p>'
-                  : '<p>Add new window configuration</p>'
-              }
-              data-event="focus mouseenter"
-              data-event-off="blur mouseleave"
-              className={classNames(
-                'new-window-button',
-                'icon',
-                'si-open-tab',
-                {
-                  active: this.props.command && this.props.command.opensWindow,
-                }
-              )}
-              disabled={
-                !this.props.command ||
-                (this.props.command && !this.props.command.command) ||
-                PlaybackState.isPlaying
-              }
-              onClick={() => {
-                ModalState.toggleNewWindowConfiguration()
-                this.props.command
-                  ? this.props.command.toggleOpensWindowRead()
-                  : undefined
-              }}
-            >
-              {this.props.command &&
-              (this.props.command.opensWindow &&
-                !this.props.command.opensWindowRead) ? (
-                <InfoBadge />
-              ) : (
-                undefined
-              )}
-            </FlatButton>
           </div>
           <div className="target">
             <TargetInput

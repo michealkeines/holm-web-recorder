@@ -100,15 +100,6 @@ export default class Modal extends Component {
             hideWelcome={ModalState.hideWelcome}
             completeWelcome={ModalState.completeWelcome}
           />
-        <NewWindowConfigurationDialog
-          isOpen={ModalState.newWindowConfigurationState}
-          cancel={ModalState.toggleNewWindowConfiguration}
-          id="new-window"
-          name="new-window"
-          label="Opens Window"
-          command={UiState.selectedCommand || {}}
-          isUniqueWindowName={ModalState.isUniqueWindowName}
-        />
         <ExportDialog
           isExporting={!!ModalState.exportState.isExporting}
           cancelSelection={() => {
