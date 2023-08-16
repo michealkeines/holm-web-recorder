@@ -84,6 +84,9 @@ class BaseUrlDialogContents extends React.Component {
           </div>
         )}
         buttons={[
+          <FlatButton onClick={this.props.cancel} key="cancel">
+          BACK
+          </FlatButton>,
           <FlatButton
             type="submit"
             disabled={!this.urlRegex.test(this.state.url)}
@@ -94,9 +97,6 @@ class BaseUrlDialogContents extends React.Component {
           >
             START RECORDING
           </FlatButton>,
-          <FlatButton onClick={this.props.cancel} key="cancel">
-          BACK
-        </FlatButton>
         ]}
         onRequestClose={this.props.cancel}
         modalTitle={BaseUrlDialogContents.modalTitleElement}

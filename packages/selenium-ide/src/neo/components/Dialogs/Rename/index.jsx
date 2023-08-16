@@ -141,6 +141,13 @@ class RenameDialogContents extends React.Component {
         )}
         buttons={[
           <FlatButton
+          disabled={this.props.isNewTest && this.state.value}
+          onClick={this.props.cancel}
+          key="cancel"
+          >
+          BACK
+          </FlatButton>,
+          <FlatButton
             type="submit"
             disabled={!this.state.value || !this.state.valid}
             onClick={() => {
@@ -152,13 +159,6 @@ class RenameDialogContents extends React.Component {
             key="ok"
           >
             OK
-          </FlatButton>,
-          <FlatButton
-            disabled={this.props.isNewTest && this.state.value}
-            onClick={this.props.cancel}
-            key="cancel"
-          >
-            BACK
           </FlatButton>,
         ]}
         onRequestClose={this.props.cancel}
