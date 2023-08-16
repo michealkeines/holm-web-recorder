@@ -106,7 +106,7 @@ class RenameDialogContents extends React.Component {
        ( <span className="low-info">
           Save and upload this session file to your Security Center account in order to scan the web application for vulnerabilities.<br/>Learn more on {' '}
             <a
-              href="https://www.holmsecurity.com"
+              href="https://support.holmsecurity.com/knowledge/how-do-i-scan-a-web-application-behind-login"
               target="_blank"
               rel="noopener noreferrer"
             >

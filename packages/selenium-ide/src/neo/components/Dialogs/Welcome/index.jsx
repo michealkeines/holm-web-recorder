@@ -100,7 +100,7 @@ class WelcomeDialogContents extends React.Component {
           <div className="full-footer">
           <p className="medium-level-text">The recorded login sequence session can be uploaded to Security Center in order to find vulnerabilities behind the login for a web application. Learn more on{' '}
             <a
-              href="https://holmsecurity.com/"
+              href="https://support.holmsecurity.com/knowledge/how-do-i-scan-a-web-application-behind-login"
               target="_blank"
               rel="noopener noreferrer"
             >
