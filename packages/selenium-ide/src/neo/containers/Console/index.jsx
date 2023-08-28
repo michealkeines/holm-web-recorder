@@ -73,7 +73,37 @@ export default class Console extends React.Component {
       { name: 'Reference', unread: false },
     ]
     return (
-      <footer>
+      <footer
+        className="console"
+        style={{
+          height: this.props.height ? `${this.props.height}px` : 'initial',
+        }}
+      >
+        <TabBar
+          tabs={tabs}
+          tabWidth={90}
+          buttonsMargin={0}
+          tabChanged={this.tabChangedHandler}
+        >
+          <ClearButton data-place="bottom" onClick={output.clear} />
+        </TabBar>
+        <div className="viewport" ref={this.setViewportRef}>
+          {this.state.tab === 'Log' && (
+            <LogList
+              output={output}
+              scrollTo={this.scroll}
+              id="Log"
+              role="tabpanel"
+            />
+          )}
+          {this.state.tab === 'Reference' && (
+            <CommandReference
+              currentCommand={command}
+              id="Reference"
+              role="tabpanel"
+            />
+          )}
+        </div>
       </footer>
     )
   }

@@ -323,12 +323,12 @@ export default class Panel extends React.Component {
         }}
       >
         <SuiteDropzone loadProject={this.doLoadProject.bind(this)}>
-          <SplitPane
+        <SplitPane
             split="horizontal"
             minSize={UiState.minContentHeight}
             maxSize={UiState.maxContentHeight}
-            size={UiState.windowHeight}
-            onChange={this.size=UiState.windowHeight}
+            size={UiState.windowHeight - UiState.consoleHeight}
+            onChange={size => UiState.resizeConsole(window.innerHeight - size)}
             style={{
               position: 'initial',
             }}
@@ -361,6 +361,10 @@ export default class Panel extends React.Component {
 
               </div>
             </div>
+            <Console
+              height={UiState.consoleHeight}
+              restoreSize={UiState.restoreConsoleSize}
+            />
           </SplitPane>
           <Modal
             project={this.state.project}
