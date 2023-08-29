@@ -24,6 +24,13 @@
   color: #FFFFFF;
 }
 
+.welcome-dialog .dialog__contents {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0%;
+}
+
 .welcome-dialog__heading {
   font-style: normal;
   font-weight: 400;
