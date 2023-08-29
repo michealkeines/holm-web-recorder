@@ -238,7 +238,7 @@ class CommandList {
 
   @computed
   get fuse() {
-    return new Fuse(Array.from(this.list.values()), {
+    return new Fuse(this.getSupported(), {
       shouldSort: true,
       threshold: 0.4,
       location: 0,
@@ -249,9 +249,22 @@ class CommandList {
     })
   }
 
+  getSupported() {
+    let result = [];
+    this.array.reduce((commands, command) => {
+      let temp = this.list.get(command);
+      if (temp.name && temp.description.includes("#HolmSupported")) {
+        result.push(temp)
+      }
+      return commands
+    }, {})
+
+    return result;
+  }
+
   @action.bound
   search(pattern) {
-    return this.fuse.search(pattern)
+    return this.fuse.search(pattern);
   }
 
   @action.bound

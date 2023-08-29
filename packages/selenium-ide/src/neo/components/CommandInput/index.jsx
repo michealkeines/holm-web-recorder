@@ -39,7 +39,7 @@ export default class CommandInput extends React.Component {
           items={
             this.props.value
               ? Commands.search(this.props.value)
-              : Array.from(Commands.list.values())
+              : Commands.getSupported()
           }
           renderDefaultStyledItem={item => (
             <span key={item.name}>{item.name}</span>
