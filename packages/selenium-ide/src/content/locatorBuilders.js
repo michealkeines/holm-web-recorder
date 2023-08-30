@@ -365,6 +365,10 @@ LocatorBuilders.add('xpath:img', function xpathImg(e) {
 
 LocatorBuilders.add('xpath:attributes', function xpathAttr(e) {
   const PREFERRED_ATTRIBUTES = [
+    'data-cy',
+    'data-test',
+    'data-testid',
+    'data-qa',
     'id',
     'name',
     'value',
@@ -381,7 +385,13 @@ LocatorBuilders.add('xpath:attributes', function xpathAttr(e) {
         locator += ' and '
       }
       let attName = attNames[i]
-      locator += '@' + attName + '=' + this.attributeValue(attributes[attName])
+
+      if (attName.includes("data-")) {
+        // //input[starts-with(@data-cy, 'username')]
+        locator += 'starts-with(@' + attName + ',' + this.attributeValue(attributes[attName]) + ')'
+      } else {
+        locator += '@' + attName + '=' + this.attributeValue(attributes[attName])
+      }
     }
     locator += ']'
     return this.preciseXPath(locator, e)
