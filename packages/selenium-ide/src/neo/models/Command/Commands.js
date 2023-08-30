@@ -601,7 +601,7 @@ export const Commands = [
     {
       name: 'set window size',
       description:
-        "Set the browser's window size, including the browser's interface. Supported by Holm Security. This command is NOT SUPPORTED by Holm Security",
+        "Set the browser's window size, including the browser's interface. Supported by Holm Security.",
       target: ArgTypes.resolution,
     },
   ],
