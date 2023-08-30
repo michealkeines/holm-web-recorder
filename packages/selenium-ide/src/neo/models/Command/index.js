@@ -253,7 +253,7 @@ class CommandList {
     let result = [];
     this.array.reduce((commands, command) => {
       let temp = this.list.get(command);
-      if (temp.name && temp.description.includes("#HolmSupported")) {
+      if (temp.name && temp.description.includes("Supported by Holm Security.")) {
         result.push(temp)
       }
       return commands

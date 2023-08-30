@@ -264,7 +264,7 @@ export const Commands = [
     {
       name: 'click',
       type: TargetTypes.LOCATOR,
-      description: `Clicks on a target element (e.g., a link, button, checkbox, or radio button). #HolmSupported`,
+      description: `Clicks on a target element (e.g., a link, button, checkbox, or radio button). Supported by Holm Security.`,
       target: ArgTypes.locator,
     },
   ],
@@ -287,7 +287,7 @@ export const Commands = [
       name: 'close',
       description: `Closes the current window. There is no need to close the 
         initial window, IDE will re-use it; closing it may cause a performance 
-        penalty on the test. #HolmSupported`,
+        penalty on the test. Supported by Holm Security.`,
     },
   ],
   [
@@ -432,7 +432,7 @@ export const Commands = [
       name: 'mouse down',
       type: TargetTypes.LOCATOR,
       description: `Simulates a user pressing the left mouse button (without 
-        releasing it yet). #HolmSupported`,
+        releasing it yet). Supported by Holm Security.`,
       target: ArgTypes.locator,
     },
   ],
@@ -442,7 +442,7 @@ export const Commands = [
       name: 'mouse down at',
       type: TargetTypes.LOCATOR,
       description: `Simulates a user pressing the left mouse button (without 
-        releasing it yet) at the specified location. #HolmSupported`,
+        releasing it yet) at the specified location. Supported by Holm Security.`,
       target: ArgTypes.locator,
       value: ArgTypes.coord,
     },
@@ -453,7 +453,7 @@ export const Commands = [
       name: 'mouse move at',
       type: TargetTypes.LOCATOR,
       description: `Simulates a user pressing the mouse button (without releasing 
-        it yet) on the specified element. #HolmSupported`,
+        it yet) on the specified element. Supported by Holm Security.`,
       target: ArgTypes.locator,
       value: ArgTypes.coord,
     },
@@ -482,7 +482,7 @@ export const Commands = [
       name: 'mouse up',
       type: TargetTypes.LOCATOR,
       description: `Simulates the event that occurs when the user releases the 
-        mouse button (e.g., stops holding the button down). #HolmSupported`,
+        mouse button (e.g., stops holding the button down). Supported by Holm Security.`,
       target: ArgTypes.locator,
     },
   ],
@@ -492,7 +492,7 @@ export const Commands = [
       name: 'mouse up at',
       type: TargetTypes.LOCATOR,
       description: `Simulates the event that occurs when the user releases the 
-        mouse button (e.g., stops holding the button down) at the specified location. #HolmSupported`,
+        mouse button (e.g., stops holding the button down) at the specified location. Supported by Holm Security.`,
       target: ArgTypes.locator,
       value: ArgTypes.coord,
     },
@@ -502,7 +502,7 @@ export const Commands = [
     {
       name: 'open',
       description: `Opens a URL and waits for the page to load before proceeding. 
-        This accepts both relative and absolute URLs. #HolmSupported`,
+        This accepts both relative and absolute URLs. Supported by Holm Security.`,
       target: ArgTypes.url,
     },
   ],
@@ -592,7 +592,7 @@ export const Commands = [
       name: 'select window',
       description: `Selects a popup window using a window locator. Once a 
         popup window has been selected, all commands will go to that window. 
-        Window locators use handles to select windows. #HolmSupported`,
+        Window locators use handles to select windows. Supported by Holm Security.`,
       target: ArgTypes.handle,
     },
   ],
@@ -629,7 +629,7 @@ export const Commands = [
     {
       name: 'set window size',
       description:
-        "Set the browser's window size, including the browser's interface. #HolmSupported",
+        "Set the browser's window size, including the browser's interface. Supported by Holm Security.",
       target: ArgTypes.resolution,
     },
   ],
@@ -697,7 +697,7 @@ export const Commands = [
     'storeWindowHandle',
     {
       name: 'store window handle',
-      description: 'Gets the handle of the current page. #HolmSupported',
+      description: 'Gets the handle of the current page. Supported by Holm Security.',
       target: ArgTypes.handle,
     },
   ],
@@ -740,7 +740,7 @@ export const Commands = [
         In these cases, value should be the value of the option selected, not 
         the visible text.  Chrome only: If a file path is given it will be 
         uploaded to the input (for type=file), NOTE: XPath locators are not 
-        supported. #HolmSupported`,
+        supported. Supported by Holm Security.`,
       target: ArgTypes.locator,
       value: ArgTypes.value,
     },
