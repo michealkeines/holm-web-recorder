@@ -20,7 +20,9 @@ import PropTypes from 'prop-types'
 import Modal from '../../Modal'
 import DialogContainer from '../Dialog'
 import LabelledInput from '../../LabelledInput'
+import logoFile from '../../../assets/images/holm.png'
 import FlatButton from '../../FlatButton'
+import './style.css'
 
 export default class BaseUrlDialog extends React.Component {
   static propTypes = {
@@ -31,7 +33,7 @@ export default class BaseUrlDialog extends React.Component {
   render() {
     return (
       <Modal
-        className="stripped"
+        className="stripped-big"
         isOpen={this.props.isSelectingUrl}
         modalTitle={BaseUrlDialogContents.modalTitleElement}
         modalDescription={BaseUrlDialogContents.modalDescriptionElement}
@@ -66,13 +68,24 @@ class BaseUrlDialogContents extends React.Component {
       <DialogContainer
         title={
           this.props.isInvalid
-            ? 'Project base URL is invalid!'
-            : "Set your project's base URL"
+            ? 'Session base URL is invalid!'
+            : "Set your Session's base URL"
         }
         type={this.props.isInvalid ? 'warn' : 'info'}
+        renderImage={() => <img height={36} alt="se-ide-logo" src={logoFile} />}
+        renderTitle={() => (
+          <div>
+            <div className="main-title">
+              Holm Security - Web Recorder
+            </div>
+            <div className="main-subtitle">
+              Record the login sequence session to find vulnerabilities behind login.
+            </div>
+          </div>
+        )}
         buttons={[
           <FlatButton onClick={this.props.cancel} key="cancel">
-            cancel
+          BACK
           </FlatButton>,
           <FlatButton
             type="submit"
@@ -82,25 +95,25 @@ class BaseUrlDialogContents extends React.Component {
             }}
             key="ok"
           >
-            {this.props.confirmLabel || 'confirm'}
+            START RECORDING
           </FlatButton>,
         ]}
         onRequestClose={this.props.cancel}
         modalTitle={BaseUrlDialogContents.modalTitleElement}
         modalDescription={BaseUrlDialogContents.modalDescriptionElement}
       >
-        <p>
-          Before you can start recording, you must specify a valid base URL for
-          your project. Your tests will start by navigating to this URL.
+        <p className='specifyURL'>
+          Specify the URL to start the recording from in order to perform the complete login session.<br/>Remember that you want to record all the steps required to successfully be authenticated to the web application.
         </p>
         <LabelledInput
           name="baseUrl"
-          label="base url"
-          placeholder="https://www.seleniumhq.org/"
+          label="url"
+          placeholder="https://www.holmsecurity.com/"
           value={this.state.url}
           onChange={this.onUrlChange}
           autoFocus
         />
+        <p class='bottom-text'>Note: Do not record any more steps than required. For example, do not record any logout action which can later impact the scanning.</p>
       </DialogContainer>
     )
   }

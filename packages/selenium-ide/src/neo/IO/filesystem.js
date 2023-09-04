@@ -98,7 +98,7 @@ function downloadProject(project) {
       sendSaveProjectEvent(project)
     } else {
       browser.downloads.download({
-        filename: projectProcessor.sanitizeProjectName(project.name) + '.side',
+        filename: projectProcessor.sanitizeProjectName(project.name) + '.json',
         url: createBlob(
           'application/side',
           beautify(JSON.stringify(project), { indent_size: 2 })
@@ -164,13 +164,13 @@ function createBlob(mimeType, data) {
 export function loadProject(project, file) {
   function displayError(error) {
     ModalState.showAlert({
-      title: 'Error migrating project',
+      title: 'Error Opening Recording',
       description: error.message,
       confirmLabel: 'close',
     })
   }
   return loadAsText(file).then(contents => {
-    if (/\.side$/i.test(file.name)) {
+    if (file.name.endsWith('.side') || file.name.endsWith('.json')) {
       loadJSProject(project, UpgradeProject(JSON.parse(contents)))
     } else {
       try {

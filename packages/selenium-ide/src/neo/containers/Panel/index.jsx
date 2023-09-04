@@ -112,30 +112,28 @@ export default class Panel extends React.Component {
     this.keyDownHandler = window.document.body.onkeydown = this.handleKeyDown.bind(
       this
     )
-    if (isProduction) {
-      // the handler writes the size to the extension storage, which throws in development
-      this.resizeHandler = window.addEventListener(
-        'resize',
-        this.handleResize.bind(this, window)
-      )
-      this.quitHandler = window.addEventListener('beforeunload', e => {
-        if (project.modified) {
-          const confirmationMessage =
-            'You have some unsaved changes, are you sure you want to leave?'
+    // the handler writes the size to the extension storage, which throws in development
+    this.resizeHandler = window.addEventListener(
+      'resize',
+      this.handleResize.bind(this, window)
+    )
+    this.quitHandler = window.addEventListener('beforeunload', e => {
+      if (project.modified) {
+        const confirmationMessage =
+          'You have some unsaved changes, are you sure you want to leave?'
 
-          e.returnValue = confirmationMessage
-          return confirmationMessage
-        }
+        e.returnValue = confirmationMessage
+        return confirmationMessage
+      }
+    })
+    this.moveInterval = setInterval(() => {
+      storage.set({
+        origin: {
+          top: window.screenY,
+          left: window.screenX,
+        },
       })
-      this.moveInterval = setInterval(() => {
-        storage.set({
-          origin: {
-            top: window.screenY,
-            left: window.screenX,
-          },
-        })
-      }, 3000)
-    }
+    }, 3000)
   }
   handleResize(currWindow) {
     UiState.setWindowHeight(currWindow.innerHeight)
@@ -243,7 +241,7 @@ export default class Panel extends React.Component {
       const choseProceed = await ModalState.showAlert({
         title: 'Create without saving',
         description:
-          'Are you sure you would like to create a new project without saving the current one?',
+          'Are you sure you would like to create a new Session without saving the current one?',
         confirmLabel: 'proceed',
         cancelLabel: 'cancel',
       })
@@ -255,7 +253,7 @@ export default class Panel extends React.Component {
       const choseProceed = await ModalState.showAlert({
         title: 'Stop recording',
         description:
-          'Leaving this project and creating a new one will stop the recording process. Would you like to continue?',
+          'Leaving this Session and creating a new one will stop the recording process. Would you like to continue?',
         confirmLabel: 'proceed',
         cancelLabel: 'cancel',
       })
@@ -280,7 +278,7 @@ export default class Panel extends React.Component {
       const choseProceed = await ModalState.showAlert({
         title: 'Load without saving',
         description:
-          'Are you sure you would like to load a new project without saving the current one?',
+          'Are you sure you would like to load a new Session without saving the current one?',
         confirmLabel: 'proceed',
         cancelLabel: 'cancel',
       })
@@ -292,7 +290,7 @@ export default class Panel extends React.Component {
       const choseProceed = await ModalState.showAlert({
         title: 'Stop recording',
         description:
-          'Leaving this project and loading a new one will stop the recording process. Would you like to continue?',
+          'Leaving this Session and loading a new one will stop the recording process. Would you like to continue?',
         confirmLabel: 'proceed',
         cancelLabel: 'cancel',
       })
@@ -325,7 +323,7 @@ export default class Panel extends React.Component {
         }}
       >
         <SuiteDropzone loadProject={this.doLoadProject.bind(this)}>
-          <SplitPane
+        <SplitPane
             split="horizontal"
             minSize={UiState.minContentHeight}
             maxSize={UiState.maxContentHeight}
@@ -353,18 +351,6 @@ export default class Panel extends React.Component {
                   dragging: UiState.navigationDragging,
                 })}
               >
-                <SplitPane
-                  split="vertical"
-                  minSize={UiState.minNavigationWidth}
-                  maxSize={UiState.maxNavigationWidth}
-                  size={UiState.navigationWidth}
-                  onChange={UiState.resizeNavigation}
-                >
-                  <Navigation
-                    tests={UiState.filteredTests}
-                    suites={this.state.project.suites}
-                    duplicateTest={this.state.project.duplicateTestCase}
-                  />
                   <Editor
                     url={this.state.project.url}
                     urls={this.state.project.urls}
@@ -372,7 +358,7 @@ export default class Panel extends React.Component {
                     test={UiState.displayedTest}
                     callstackIndex={UiState.selectedTest.stack}
                   />
-                </SplitPane>
+
               </div>
             </div>
             <Console

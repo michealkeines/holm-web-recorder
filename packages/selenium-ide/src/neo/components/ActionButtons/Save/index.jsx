@@ -29,7 +29,7 @@ export default class SaveButton extends React.Component {
     delete props.unsaved
     return (
       <ActionButton
-        data-tip={`<p>Save project <span style="color: #929292;padding-left: 5px;">${
+        data-tip={`<p>Save Session <span style="color: #929292;padding-left: 5px;">${
           !UiState.keyboardShortcutsEnabled
             ? ''
             : parse('s', { primaryKey: true })
@@ -40,7 +40,7 @@ export default class SaveButton extends React.Component {
           { pulse: this.props.unsaved },
           this.props.className
         )}
-        aria-label="Save project"
+        aria-label="Save Session"
       /> // eslint-disable-line react/prop-types
     )
   }

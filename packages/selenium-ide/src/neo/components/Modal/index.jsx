@@ -81,7 +81,7 @@ export default class Modal extends React.Component {
             }}
           >
             <div
-              className={classNames('modal', this.props.className)}
+              className={classNames(this.props.className == 'stripped-big'? '': 'model' , this.props.className)}
               style={this.props.transitionStyles[status]}
             >
               {this.props.children}

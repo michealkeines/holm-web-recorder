@@ -93,24 +93,13 @@ export default class Modal extends Component {
           onUrlSelection={ModalState.baseUrlState.done}
           cancel={ModalState.baseUrlState.cancel}
         />
-        {isProduction ? (
-          <WelcomeDialog
+        <WelcomeDialog
             isWelcomed={ModalState.welcomeState.started}
             project={this.props.project}
             createNewProject={this.props.createNewProject}
             hideWelcome={ModalState.hideWelcome}
             completeWelcome={ModalState.completeWelcome}
           />
-        ) : null}
-        <NewWindowConfigurationDialog
-          isOpen={ModalState.newWindowConfigurationState}
-          cancel={ModalState.toggleNewWindowConfiguration}
-          id="new-window"
-          name="new-window"
-          label="Opens Window"
-          command={UiState.selectedCommand || {}}
-          isUniqueWindowName={ModalState.isUniqueWindowName}
-        />
         <ExportDialog
           isExporting={!!ModalState.exportState.isExporting}
           cancelSelection={() => {

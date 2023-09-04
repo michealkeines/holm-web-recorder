@@ -35,7 +35,7 @@ const router = new Router()
 const errors = {
   cannotAccessInControlMode: {
     errorCode: 'CannotAccessInControlMode',
-    error: 'Selenium IDE is controlled by a different extension.',
+    error: 'Holm Web is controlled by a different extension.',
   },
   missingPlugin: {
     errorCode: 'MissingPlugin',
@@ -71,7 +71,7 @@ function tryOverrideControl(req) {
   WindowSession.focusIDEWindow()
   return ModalState.showAlert({
     title: 'Assisted Control',
-    description: `${req.name} is trying to control Selenium IDE`,
+    description: `${req.name} is trying to control Holm Security - Web Recorder`,
     confirmLabel: 'Restart and Allow access',
     cancelLabel: 'Deny access',
   }).then(r => {
@@ -197,10 +197,10 @@ router.post('/project', (req, res) => {
     if (!UiState.isSaved()) {
       WindowSession.focusIDEWindow()
       ModalState.showAlert({
-        title: 'Open project without saving',
+        title: 'Open Session without saving',
         description: `${
           plugin.name
-        } is trying to load a project, are you sure you want to load this project and lose all unsaved changes?`,
+        } is trying to load a Session, are you sure you want to load this Session and lose all unsaved changes?`,
         confirmLabel: 'proceed',
         cancelLabel: 'cancel',
       }).then(result => {

@@ -1,23 +1,26 @@
 {
-  "description": "Selenium Record and Playback tool for ease of getting acquainted with Selenium WebDriver.",
+  "description": "Holm Security - Web Recorder, records complex login actions with replay option.",
   "manifest_version": 2,
-  "name": "Selenium IDE",
-  "version": "3.17.2",
-  "version_name": "3.17.2",
-  "homepage_url": "https://github.com/SeleniumHQ/selenium-ide",
+  "name": "Holm Security - Web Recorder",
+  "version": "1.0.0",
+  "version_name": "1.0.0",
+  "homepage_url": "https://sc.holmsecurity.com/",
   "icons": {
-    "16": "icons/icon16.png",
-    "32": "icons/icon32.png",
-    "64": "icons/icon64.png",
-    "128": "icons/icon128.png"
+    "16": "icons/Holm.png",
+    "32": "icons/Holm.png",
+    "48": "icons/Holm.png",
+    "64": "icons/Holm.png",
+    "128": "icons/Holm.png"
   },
   "browser_action": {
     "default_icon": {
-      "16": "icons/icon_menu16.png",
-      "32": "icons/icon_menu32.png",
-      "64": "icons/icon_menu64.png"
+      "16": "icons/Holm.png",
+      "32": "icons/Holm.png",
+      "48": "icons/Holm.png",
+      "64": "icons/Holm.png",
+      "128": "icons/Holm.png"
     },
-    "default_title": "Selenium IDE"
+    "default_title": "Holm Security - Web Recorder"
   },
   "permissions": [
     "tabs",
@@ -35,8 +38,7 @@
     ]
   },
   "web_accessible_resources": [
-    "icons/icon128.png",
-    "icons/icon_light128.png",
+    "icons/holm128.ico",
     "assets/prompt.js",
     "assets/indicator.js",
     "assets/highlight.css",

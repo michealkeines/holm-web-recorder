@@ -1,10 +1,12 @@
 .record {
-  padding-right: 5px;
+  padding-right: 10px;
 }
 
 .si-record {
   color: #b00000;
   animation: none;
+  width: 100%;
+  height: 100%;
 }
 
 .si-record:hover {

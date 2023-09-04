@@ -34,14 +34,14 @@ export default class SpeedGaugeButton extends React.Component {
     delete props.isMenuOpen
     return (
       <ActionButton
-        data-tip="<p>Test execution speed</p>"
+        data-tip="<p>Session execution speed</p>"
         {...props}
         className={classNames(
           `si-gauge-${this.props.speed}`,
           { active: this.props.isMenuOpen },
           this.props.className
         )}
-        aria-label="Test execution speed"
+        aria-label="Session execution speed"
       >
         <i className="si-caret" />
       </ActionButton>

@@ -25,7 +25,7 @@ export default class PauseCurrentButton extends React.Component {
   render() {
     return (
       <ActionButton
-        data-tip={`<p>Pause test execution <span style="color: #929292;padding-left: 5px;">${
+        data-tip={`<p>Pause Session execution <span style="color: #929292;padding-left: 5px;">${
           !UiState.keyboardShortcutsEnabled
             ? ''
             : parse('p', { primaryKey: true })

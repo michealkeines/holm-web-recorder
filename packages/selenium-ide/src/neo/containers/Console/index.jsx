@@ -85,7 +85,7 @@ export default class Console extends React.Component {
           buttonsMargin={0}
           tabChanged={this.tabChangedHandler}
         >
-          <ClearButton onClick={output.clear} />
+          <ClearButton data-place="bottom" onClick={output.clear} />
         </TabBar>
         <div className="viewport" ref={this.setViewportRef}>
           {this.state.tab === 'Log' && (

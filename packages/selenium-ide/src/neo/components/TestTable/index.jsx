@@ -93,10 +93,10 @@ export default class TestTable extends React.Component {
           <thead>
             <tr>
               <th>
-                <span>Command</span>
+                <span>Recorded Action</span>
               </th>
-              <th>Target</th>
-              <th>Value</th>
+              <th>Selector</th>
+              <th>Input (if any)</th>
             </tr>
           </thead>
         </table>
@@ -115,7 +115,6 @@ export default class TestTable extends React.Component {
         )}
       >
         <table>
-          {/* thead is invisiable to the user but it is visible to the Screen Reader */}
           <caption
             className={classNames('hidden-visualy-screen-reader-visible')}
             tabIndex={-1}

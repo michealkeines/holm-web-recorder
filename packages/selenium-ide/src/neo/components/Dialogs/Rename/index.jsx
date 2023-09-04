@@ -22,6 +22,7 @@ import FlatButton from '../../FlatButton'
 import LabelledInput from '../../LabelledInput'
 import DialogContainer from '../Dialog'
 import classNames from 'classnames'
+import logoFile from '../../../assets/images/holm.png'
 import './style.css'
 
 export default class RenameDialog extends React.Component {
@@ -36,7 +37,7 @@ export default class RenameDialog extends React.Component {
   render() {
     return (
       <Modal
-        className={classNames('stripped', 'rename-dialog')}
+        className={classNames('stripped-mid', 'rename-dialog')}
         isOpen={this.props.isEditing}
         onRequestClose={this.props.cancel}
         modalTitle={RenameDialogContents.modalTitleElement}
@@ -72,42 +73,46 @@ class RenameDialogContents extends React.Component {
     })
   }
   render() {
+    let temp_title = "";
+
+    if (this.props.isNewTest) {
+      temp_title = 'Output File';
+    } else {
+      if (this.props.type === 'project') {
+        temp_title = 'Recorder Session';
+      } else {
+        temp_title = `${this.state.isRenaming ? 'Rename' : 'Add new'} ${
+          this.state.type === 'project' ? 'Session' : 'Output'
+        }`;
+      }
+    }
     const content = {
-      title: this.props.isNewTest
-        ? 'Name your new test'
-        : this.props.type === 'project'
-          ? 'Name your new project'
-          : `${this.state.isRenaming ? 'Rename' : 'Add new'} ${
-              this.state.type
-            }`,
+      title: temp_title,
       bodyTop: this.props.isNewTest ? (
         <span id="renameDescription">
-          Please provide a name for your new test.
+          Please provide a name for your output file.
         </span>
       ) : this.props.type === 'project' ? (
-        <span id="renameDescription">
-          Please provide a name for your new project.
+        <span id="renameDescription" className="provideName">
+          Please provide the name of this login sequence session.
         </span>
       ) : (
         <span
           className="hidden"
           id="renameDescription"
-        >{`Please provide a name for your ${this.state.type}.`}</span>
+        >{`Please provide the name of this recorded session.`}</span>
       ),
-      bodyBottom: this.props.isNewTest ? (
-        <span>
-          You can change it at any time by clicking the{' '}
-          <span className={classNames('si-more', 'more-icon')} /> icon next to
-          its name in the tests panel.
-        </span>
-      ) : this.props.type === 'project' ? (
-        <span>
-          You can change the name of your project at any time by clicking it and
-          entering a new name.
-        </span>
-      ) : (
-        undefined
-      ),
+      bodyBottom:
+       ( <span className="low-info">
+          Save and upload this session file to your Security Center account in order to scan the web application for vulnerabilities.<br/>Learn more on {' '}
+            <a
+              href="https://support.holmsecurity.com/knowledge/how-do-i-scan-a-web-application-behind-login"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              How to scan a web application behind login.
+            </a>
+        </span>),
       submitButton:
         this.props.isNewTest || this.props.type === 'project'
           ? 'OK'
@@ -116,20 +121,31 @@ class RenameDialogContents extends React.Component {
             : 'add',
       cancelButton: this.props.isNewTest ? 'later' : 'cancel',
       inputLabel: this.props.isNewTest
-        ? 'test name'
-        : this.state.type + ' name',
+        ? 'session name'
+        : (this.state.type === 'project'? 'Session' : 'File') + ' name',
     }
     return (
       <DialogContainer
         title={content.title}
         type={this.state.valid ? 'info' : 'warn'}
+        renderImage={() => <img height={36} alt="se-ide-logo" src={logoFile} />}
+        renderTitle={() => (
+          <div>
+            <div className="main-title">
+              Holm Security - Web Recorder
+            </div>
+            <div className="main-subtitle">
+              Record the login sequence session to find vulnerabilities behind login.
+            </div>
+          </div>
+        )}
         buttons={[
           <FlatButton
-            disabled={this.props.isNewTest && !!this.state.value}
-            onClick={this.props.cancel}
-            key="cancel"
+          disabled={this.props.isNewTest && this.state.value}
+          onClick={this.props.cancel}
+          key="cancel"
           >
-            {content.cancelButton}
+          BACK
           </FlatButton>,
           <FlatButton
             type="submit"
@@ -142,7 +158,7 @@ class RenameDialogContents extends React.Component {
             }}
             key="ok"
           >
-            {content.submitButton}
+            OK
           </FlatButton>,
         ]}
         onRequestClose={this.props.cancel}
@@ -151,7 +167,7 @@ class RenameDialogContents extends React.Component {
       >
         {content.bodyTop}
         <LabelledInput
-          name={this.state.type + 'Name'}
+          name={(this.state.type === 'project'? 'Session' : 'File') + 'Name'}
           label={content.inputLabel}
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
@@ -159,10 +175,10 @@ class RenameDialogContents extends React.Component {
         />
         {!this.state.valid && (
           <span className="message">
-            A {this.props.type} with this name already exists
+            A {(this.state.type === 'project'? 'Session' : 'File')} with this name already exists
           </span>
         )}
-        {content.bodyBottom}
+        <div class="low-bottom">{content.bodyBottom}</div>
       </DialogContainer>
     )
   }

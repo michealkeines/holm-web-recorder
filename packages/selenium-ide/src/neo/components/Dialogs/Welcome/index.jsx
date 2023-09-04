@@ -23,7 +23,7 @@ import UiState from '../../../stores/view/UiState'
 import project from '../../../../../package.json'
 import Modal from '../../Modal'
 import DialogContainer from '../Dialog'
-import logoFile from '../../../assets/images/selenium_blue_white32@3x.svg'
+import logoFile from '../../../assets/images/holm.png'
 import { OpenInput } from '../../ActionButtons/Open'
 import './style.css'
 
@@ -89,50 +89,60 @@ class WelcomeDialogContents extends React.Component {
         renderTitle={() => (
           <div>
             <div className="welcome-dialog__title">
-              Welcome to Selenium IDE!
+              Holm Security - Web Recorder
             </div>
             <div className="welcome-dialog__subtitle">
-              Version {project.version}
+              Record the login sequence session to find vulnerabilities behind login.
             </div>
           </div>
         )}
         renderFooter={() => (
-          <p>
-            To learn more on Selenium IDE and how to use it visit the{' '}
+          <div className="full-footer">
+          <p className="medium-level-text">The recorded login sequence session can be uploaded to Security Center in order to find vulnerabilities behind the login for a web application. Learn more on{' '}
             <a
-              href="https://www.seleniumhq.org/selenium-ide/"
+              href="https://support.holmsecurity.com/knowledge/how-do-i-scan-a-web-application-behind-login"
               target="_blank"
               rel="noopener noreferrer"
             >
-              the Selenium IDE project page
+              How to scan a web application behind login.
             </a>
-            .
           </p>
+          <p className="very-small-text">Built by {' '}
+            <a
+              href="https://holmsecurity.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Holm Security</a>, based on {' '}
+            <a
+              href="https://selenium.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Selenium IDE</a></p>
+          </div>
         )}
         modalTitle={WelcomeDialogContents.modalTitleElement}
         modalDescription={WelcomeDialogContents.modalDescriptionElement}
       >
         <div>
-          <div>What would you like to do?</div>
-          <ul className="welcome-dialog__options">
-            <li>
-              <a onClick={this.startRecordingInNewProject}>
-                Record a new test in a new project
-              </a>
-            </li>
-            <li className="file-open">
-              <OpenInput
-                onFileSelected={this.openProject}
-                labelMarkup={<div>Open an existing project</div>}
-              />
-            </li>
-            <li>
-              <a onClick={this.createNewProject}>Create a new project</a>
-            </li>
-            <li>
-              <a onClick={this.dismiss}>Close Selenium IDE</a>
-            </li>
-          </ul>
+          <div className="welcome-dialog__heading">The Web Recorder is a part of Holm Security Vulnerability Management Platform.</div><br/>
+          <div>
+            <ul className="welcome-dialog__options">
+              <li>
+              <b className="what-like-to-do">What would you like to do?</b>
+              </li>
+              <li>
+                <a onClick={this.startRecordingInNewProject}>
+                  Record new login session
+                </a>
+              </li>
+              <li className="file-open">
+                <OpenInput
+                  onFileSelected={this.openProject}
+                  labelMarkup={<a>Open existing recorded session</a>}
+                />
+              </li>
+            </ul>
+          </div>
         </div>
       </DialogContainer>
     )

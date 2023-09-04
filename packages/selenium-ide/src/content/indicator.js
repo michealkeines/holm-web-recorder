@@ -3,13 +3,13 @@ var handleMessage = (function() {
   var circle = document.getElementById('circle')
   var img = document.getElementById('ide-img')
   img.src = (window.chrome ? chrome : browser).runtime.getURL(
-    '/icons/icon_light128.png'
+    '/icons/holm128.ico'
   )
   var lastTimeoutHandle = 0
 
   function resetContent() {
-    content.innerText = 'Selenium IDE is recording...'
-    content.setAttribute('aria-label', 'Selenium IDE is recording...')
+    content.innerText = 'Holm Web is recording...'
+    content.setAttribute('aria-label', 'Holm Web is recording...')
     content.setAttribute('role', 'alert')
     content.style.color = '#E80600'
     circle.style.animation = 'fadeIn 1s infinite alternate'

@@ -247,7 +247,7 @@ class TestRow extends React.Component {
       const choseProceed = await ModalState.showAlert({
         title: 'Clear all test commands',
         description:
-          "You're about to remove all of the commands in this test. Do you want to proceed?",
+          "You're about to remove all of the commands in this recording. Do you want to proceed?",
         confirmLabel: 'clear all commands',
         cancelLabel: 'cancel',
       })

@@ -70,17 +70,17 @@ export default class PlaybackLogger {
   logPlayingState(isPlaying) {
     let log
     if (isPlaying) {
-      log = new Log(`Running '${PlaybackState.stackCaller.name}'`)
+      log = new Log(`Running Recorded Session`)
       log.setNotice()
     } else if (PlaybackState.aborted) {
       log = new Log(
-        `'${PlaybackState.stackCaller.name}' was aborted`,
+        `Recorded Session was aborted`,
         LogTypes.Failure
       )
       log.setNotice()
     } else {
       log = new Log(
-        `'${PlaybackState.stackCaller.name}' ${
+        `Recorded Session ${
           !PlaybackState.hasFinishedSuccessfully
             ? `ended with ${PlaybackState.errors} error(s)`
             : 'completed successfully'

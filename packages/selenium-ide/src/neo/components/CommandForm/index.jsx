@@ -83,7 +83,7 @@ export default class CommandForm extends React.Component {
             <CommandInput
               id="command"
               name="command"
-              label="Command"
+              label="Action"
               value={
                 this.props.command
                   ? this.parseCommandName(this.props.command.command)
@@ -95,7 +95,7 @@ export default class CommandForm extends React.Component {
               }
             />
             <FlatButton
-              data-tip="<p>Enable/Disable command</p>"
+              data-tip="<p>Enable/Disable Action</p>"
               data-event="focus mouseenter"
               data-event-off="blur mouseleave"
               className={classNames(
@@ -115,48 +115,12 @@ export default class CommandForm extends React.Component {
                 this.props.command ? this.props.command.toggleEnabled : null
               }
             />
-            <FlatButton
-              data-tip={
-                this.props.command && this.props.command.opensWindow
-                  ? '<p>Modify new window configuration</p>'
-                  : '<p>Add new window configuration</p>'
-              }
-              data-event="focus mouseenter"
-              data-event-off="blur mouseleave"
-              className={classNames(
-                'new-window-button',
-                'icon',
-                'si-open-tab',
-                {
-                  active: this.props.command && this.props.command.opensWindow,
-                }
-              )}
-              disabled={
-                !this.props.command ||
-                (this.props.command && !this.props.command.command) ||
-                PlaybackState.isPlaying
-              }
-              onClick={() => {
-                ModalState.toggleNewWindowConfiguration()
-                this.props.command
-                  ? this.props.command.toggleOpensWindowRead()
-                  : undefined
-              }}
-            >
-              {this.props.command &&
-              (this.props.command.opensWindow &&
-                !this.props.command.opensWindowRead) ? (
-                <InfoBadge />
-              ) : (
-                undefined
-              )}
-            </FlatButton>
           </div>
           <div className="target">
             <TargetInput
               id="target"
               name="target"
-              label="Target"
+              label="Selector"
               value={this.props.command ? this.props.command.target : ''}
               targets={this.props.command ? this.props.command.targets : []}
               disabled={!this.props.command}
@@ -165,7 +129,7 @@ export default class CommandForm extends React.Component {
               }
             />
             <FlatButton
-              data-tip="<p>Select target in page</p>"
+              data-tip="<p>Pick Selector in page</p>"
               className={classNames('icon', 'si-select', {
                 active: this.props.isSelecting,
               })}
@@ -179,7 +143,7 @@ export default class CommandForm extends React.Component {
               onClick={this.handleSelect}
             />
             <FlatButton
-              data-tip="<p>Find target in page</p>"
+              data-tip="<p>Find Selector in page</p>"
               data-event="focus mouseenter"
               data-event-off="blur mouseleave"
               className="icon si-search"

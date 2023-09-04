@@ -106,25 +106,23 @@ function openWindowFromStorageResolution() {
         opts.left = storage.origin.left
       }
       return browser.windows.create(
-        Object.assign(
-          {
-            url: browser.extension.getURL('index.html'),
-            type: 'popup',
-          },
-          opts
-        )
+        {
+          url: browser.extension.getURL('index.html'),
+          type: 'popup',
+          height: 600,
+          width: 1150,
+        }
       )
     })
     .catch(e => {
       console.error(e) // eslint-disable-line no-console
       return browser.windows.create(
-        Object.assign(
-          {
-            url: browser.extension.getURL('index.html'),
-            type: 'popup',
-          },
-          opts
-        )
+        {
+          url: browser.extension.getURL('index.html'),
+          type: 'popup',
+          height: 600,
+          width: 1150,
+        }
       )
     })
 }
@@ -213,7 +211,7 @@ function handleInternalMessage(message) {
             .catch(() => {
               browser.runtime.sendMessage(
                 message.controller.id,
-                'Error Connecting to Selenium IDE'
+                'Error Connecting to Holm Web'
               )
             })
         })
@@ -261,7 +259,7 @@ browser.runtime.onMessageExternal.addListener(
             sendResponse(true)
           })
         } else {
-          return sendResponse({ error: 'Selenium IDE is not active' })
+          return sendResponse({ error: 'Holm Security - Web Recorder is not active' })
         }
       })
     return true

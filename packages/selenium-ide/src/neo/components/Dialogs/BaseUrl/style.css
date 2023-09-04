@@ -1,0 +1,39 @@
+.main-title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px;
+    
+    /* identical to box height, or 100% */
+    
+    color: #FFFFFF;
+}
+
+.main-subtitle {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+  
+    /* identical to box height, or 100% */
+  
+    color: #FFFFFF;
+}
+
+.bottom-text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px !important;
+
+    color: #505050;
+}
+
+.specifyURL {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px !important;
+
+    color: #505050;
+}

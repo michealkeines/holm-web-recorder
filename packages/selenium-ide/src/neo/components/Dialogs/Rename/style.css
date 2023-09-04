@@ -6,3 +6,57 @@
   font-size: 16px;
   vertical-align: middle;
 }
+
+.rename-dialog a,
+.rename-dialog a:visited,
+.rename-dialog .file-open label {
+  text-decoration: none;
+  color: #48aaff;
+  cursor: pointer;
+}
+
+.main-title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  
+  /* identical to box height, or 100% */
+  
+  color: #FFFFFF;
+}
+
+.main-subtitle {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+
+  /* identical to box height, or 100% */
+
+  color: #FFFFFF;
+}
+
+/* .low-bottom {
+  font-size: 12px;
+} */
+
+.low-info {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+
+  color: #505050;
+}
+
+.provideName {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+
+  /* identical to box height */
+
+  color: #505050;
+}
