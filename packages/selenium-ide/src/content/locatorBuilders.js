@@ -25,13 +25,13 @@ export default function LocatorBuilders(window) {
 
 window.LocatorBuilders = LocatorBuilders
 
-LocatorBuilders.prototype.detach = function() {}
+LocatorBuilders.prototype.detach = function () { }
 
-LocatorBuilders.prototype.buildWith = function(name, e, opt_contextNode) {
+LocatorBuilders.prototype.buildWith = function (name, e, opt_contextNode) {
   return LocatorBuilders.builderMap[name].call(this, e, opt_contextNode)
 }
 
-LocatorBuilders.prototype.elementEquals = function(name, e, locator) {
+LocatorBuilders.prototype.elementEquals = function (name, e, locator) {
   let fe = this.findElement(locator)
   //TODO: add match function to the ui locator builder, note the inverted parameters
   return (
@@ -42,7 +42,7 @@ LocatorBuilders.prototype.elementEquals = function(name, e, locator) {
   )
 }
 
-LocatorBuilders.prototype.build = function(e) {
+LocatorBuilders.prototype.build = function (e) {
   let locators = this.buildAll(e)
   if (locators.length > 0) {
     return locators[0][0]
@@ -51,12 +51,14 @@ LocatorBuilders.prototype.build = function(e) {
   }
 }
 
-LocatorBuilders.prototype.buildAll = function(el) {
+LocatorBuilders.prototype.buildAll = function (el) {
   let e = core.firefox.unwrap(el) //Samit: Fix: Do the magic to get it to work in Firefox 4
   let locator
   let locators = []
+  // console.log(`clicked something? we got multiple finders ${JSON.stringify(e)}`)
   for (let i = 0; i < LocatorBuilders.order.length; i++) {
     let finderName = LocatorBuilders.order[i]
+    // console.log(`clicked something? current finder ${JSON.stringify(e)}, ${JSON.stringify(finderName)}`)
     try {
       locator = this.buildWith(finderName, e)
       if (locator) {
@@ -64,10 +66,26 @@ LocatorBuilders.prototype.buildAll = function(el) {
         //Samit: The following is a quickfix for above commented code to stop exceptions on almost every locator builder
         //TODO: the builderName should NOT be used as a strategy name, create a feature to allow locatorBuilders to specify this kind of behaviour
         //TODO: Useful if a builder wants to capture a different element like a parent. Use the this.elementEquals
-        let fe = this.findElement(locator)
-        if (e == fe) {
+        // console.log(`clicked something? we will find the element then, ${JSON.stringify(locator)}`)
+
+        if (locator.includes("##sep##")) {
+          // console.log(`clicked something? added ${JSON.stringify(locator)}`)
           locators.push([locator, finderName])
         }
+        let fe = this.findElement(locator)
+        // console.log(`clicked something? foudn it ${JSON.stringify(fe)}`)
+
+        if (fe.length > 1) {
+          fe.forEach(k => {
+            // console.log(`found something different ${JSON.stringify(k)}`)  
+          });
+
+        } else if (fe.length == 1) {
+          if (e == fe[0]) {
+            locators.push([locator, finderName])
+          }
+        }
+
       }
     } catch (e) {
       // TODO ignore the buggy locator builder for now
@@ -77,13 +95,102 @@ LocatorBuilders.prototype.buildAll = function(el) {
   return locators
 }
 
-LocatorBuilders.prototype.findElement = function(loc) {
+function recursiveFinder(node) {
+  // Get the root of the current node (could be shadow root or the document)
+  let root = node.getRootNode();
+
+  // Check if root is a shadow root and there's a host to continue the recursion
+  if (root instanceof ShadowRoot && root.host) {
+    // Construct selectors for both the current node and its host
+    let selectorForNode = finder(node, { root: root });
+    let parentSelector = recursiveFinder(root.host);
+    return `${parentSelector}##sep##${selectorForNode}`;
+  } else {
+    // Base case: We've reached the highest root, return the finder result
+    return finder(node);
+  }
+}
+
+
+LocatorBuilders.prototype.buildAllShadow = function (el) {
+  let e = core.firefox.unwrap(el) //Samit: Fix: Do the magic to get it to work in Firefox 4
+  let locator
+  let locators = []
+  // console.log(`clicked something shadow? we got multiple finders ${JSON.stringify(e)}`)
+  let finderName = 'css:findershadow'
+  // console.log(`clicked something shadow? current finder ${JSON.stringify(e)}, ${JSON.stringify(finderName)}`)
   try {
-    const locator = parse_locator(loc, true)
-    return bot.locators.findElement(
+    locator = this.buildWith(finderName, e)
+    locators.push([locator, finderName])
+    // if (locator) {
+    //   locator = String(locator)
+    //   //Samit: The following is a quickfix for above commented code to stop exceptions on almost every locator builder
+    //   //TODO: the builderName should NOT be used as a strategy name, create a feature to allow locatorBuilders to specify this kind of behaviour
+    //   //TODO: Useful if a builder wants to capture a different element like a parent. Use the this.elementEquals
+    //   console.log(`clicked something shadow? we will find the element then, ${JSON.stringify(locator)}`)
+    //   let fe = this.findElement(locator)
+    //   console.log(`clicked something shadow? foudn it ${JSON.stringify(fe)}`)
+    //   if (fe.length > 1) {
+    //     fe.forEach(k => {
+    //       console.log(`found something shadow different ${JSON.stringify(k)}`)
+
+    //     });
+
+    //   } else if (fe.length == 1) {
+    //     if (e == fe[0]) {
+    //       locators.push([locator, finderName])
+    //     }
+    //   }
+
+    // }
+  } catch (e) {
+    // TODO ignore the buggy locator builder for now
+    // console.log("locator exception shadow build: " + e);
+  }
+  return locators
+}
+
+function findElementsInShadowDOM(node, callback) {
+  if (!node) return;
+  callback(node);
+  if (node.shadowRoot) {
+    node.shadowRoot.querySelectorAll('*').forEach(child => {
+      findElementsInShadowDOM(child, callback);
+    });
+  } else {
+    node.querySelectorAll('*').forEach(child => {
+      findElementsInShadowDOM(child, callback);
+    });
+  }
+}
+
+LocatorBuilders.prototype.findElement = function (loc) {
+  try {
+    // const locator = parse_locator(loc, true)
+    // return bot.locators.findElement(
+    //   { [locator.type]: locator.string },
+    //   this.window.document
+    // )
+    const locator = parse_locator(loc, true);
+    let element = bot.locators.findElement(
       { [locator.type]: locator.string },
       this.window.document
-    )
+    );
+
+    let elements = []
+
+    // Find elements within shadow DOM
+    if (element.shadowRoot) {
+      // console.log(`element is shadow ${JSON.stringify(element)}`) 
+      findElementsInShadowDOM(element.shadowRoot, shadowElement => {
+        // Handle shadow element as needed
+        //elements.push(shadowElement)
+      });
+    } else {
+      elements.push(element)
+    }
+
+    return elements;
   } catch (error) {
     //this.log.debug("findElement failed: " + error + ", locator=" + locator);
     return null
@@ -100,7 +207,8 @@ LocatorBuilders._preferredOrder = []
 // NOTE: for some reasons we does not use this part
 // classObservable(LocatorBuilders);
 
-LocatorBuilders.add = function(name, finder) {
+LocatorBuilders.add = function (name, finder) {
+  // console.log(`adding a finder: ${name}, ${JSON.stringify(finder)}`)
   this.order.push(name)
   this.builderMap[name] = finder
   this._orderChanged()
@@ -109,7 +217,7 @@ LocatorBuilders.add = function(name, finder) {
 /**
  * Call when the order or preferred order changes
  */
-LocatorBuilders._orderChanged = function() {
+LocatorBuilders._orderChanged = function () {
   let changed = this._ensureAllPresent(this.order, this._preferredOrder)
   this._sortByRefOrder(this.order, this._preferredOrder)
   if (changed) {
@@ -123,7 +231,7 @@ LocatorBuilders._orderChanged = function() {
  *
  * @param preferredOrder can be an array or a comma separated string of names
  */
-LocatorBuilders.setPreferredOrder = function(preferredOrder) {
+LocatorBuilders.setPreferredOrder = function (preferredOrder) {
   if (typeof preferredOrder === 'string') {
     this._preferredOrder = preferredOrder.split(',')
   } else {
@@ -135,7 +243,7 @@ LocatorBuilders.setPreferredOrder = function(preferredOrder) {
 /**
  * Returns the locator builders preferred order as an array
  */
-LocatorBuilders.getPreferredOrder = function() {
+LocatorBuilders.getPreferredOrder = function () {
   return this._preferredOrder
 }
 
@@ -144,9 +252,9 @@ LocatorBuilders.getPreferredOrder = function() {
  * @param arrayToSort
  * @param sortOrderReference
  */
-LocatorBuilders._sortByRefOrder = function(arrayToSort, sortOrderReference) {
+LocatorBuilders._sortByRefOrder = function (arrayToSort, sortOrderReference) {
   let raLen = sortOrderReference.length
-  arrayToSort.sort(function(a, b) {
+  arrayToSort.sort(function (a, b) {
     let ai = sortOrderReference.indexOf(a)
     let bi = sortOrderReference.indexOf(b)
     return (ai > -1 ? ai : raLen) - (bi > -1 ? bi : raLen)
@@ -158,9 +266,9 @@ LocatorBuilders._sortByRefOrder = function(arrayToSort, sortOrderReference) {
  * @param sourceArray
  * @param destArray
  */
-LocatorBuilders._ensureAllPresent = function(sourceArray, destArray) {
+LocatorBuilders._ensureAllPresent = function (sourceArray, destArray) {
   let changed = false
-  sourceArray.forEach(function(e) {
+  sourceArray.forEach(function (e) {
     if (destArray.indexOf(e) == -1) {
       destArray.push(e)
       changed = true
@@ -172,7 +280,7 @@ LocatorBuilders._ensureAllPresent = function(sourceArray, destArray) {
 /*
  * Utility function: Encode XPath attribute value.
  */
-LocatorBuilders.prototype.attributeValue = function(value) {
+LocatorBuilders.prototype.attributeValue = function (value) {
   if (value.indexOf("'") < 0) {
     return "'" + value + "'"
   } else if (value.indexOf('"') < 0) {
@@ -208,7 +316,7 @@ LocatorBuilders.prototype.attributeValue = function(value) {
   }
 }
 
-LocatorBuilders.prototype.xpathHtmlElement = function(name) {
+LocatorBuilders.prototype.xpathHtmlElement = function (name) {
   if (this.window.document.contentType == 'application/xhtml+xml') {
     // "x:" prefix is required when testing XHTML pages
     return 'x:' + name
@@ -217,7 +325,7 @@ LocatorBuilders.prototype.xpathHtmlElement = function(name) {
   }
 }
 
-LocatorBuilders.prototype.relativeXPathFromParent = function(current) {
+LocatorBuilders.prototype.relativeXPathFromParent = function (current) {
   let index = this.getNodeNbr(current)
   let currentPath = '/' + this.xpathHtmlElement(current.nodeName.toLowerCase())
   if (index > 0) {
@@ -226,7 +334,7 @@ LocatorBuilders.prototype.relativeXPathFromParent = function(current) {
   return currentPath
 }
 
-LocatorBuilders.prototype.getNodeNbr = function(current) {
+LocatorBuilders.prototype.getNodeNbr = function (current) {
   let childNodes = current.parentNode.childNodes
   let total = 0
   let index = -1
@@ -242,7 +350,7 @@ LocatorBuilders.prototype.getNodeNbr = function(current) {
   return index
 }
 
-LocatorBuilders.prototype.preciseXPath = function(xpath, e) {
+LocatorBuilders.prototype.preciseXPath = function (xpath, e) {
   //only create more precise xpath if needed
   if (this.findElement(xpath) != e) {
     let result = e.ownerDocument.evaluate(
@@ -312,16 +420,33 @@ LocatorBuilders.add('css:finder', function cssFinder(e) {
   return 'css=' + finder(e)
 })
 
+LocatorBuilders.add('css:findershadow', function cssFinder(e) {
+  // console.log(`css starting finder`)
+  let temp
+  try {
+    temp = 'css=' + recursiveFinder(e)
+  } catch (k) {
+    // console.log(`css starting finder error ${k}`)
+    return '8css=error'
+  }
+
+  // console.log(`css finder:11 ${JSON.stringify(e)}`)
+  // console.log(`css finder11: ${e}`)
+
+  // console.log(`css finder112: ${e}: ${temp}`)
+  return temp
+})
+
 LocatorBuilders.add('xpath:link', function xpathLink(e) {
   if (e.nodeName == 'A') {
     let text = e.textContent
     if (!text.match(/^\s*$/)) {
       return this.preciseXPath(
         '//' +
-          this.xpathHtmlElement('a') +
-          "[contains(text(),'" +
-          text.replace(/^\s+/, '').replace(/\s+$/, '') +
-          "')]",
+        this.xpathHtmlElement('a') +
+        "[contains(text(),'" +
+        text.replace(/^\s+/, '').replace(/\s+$/, '') +
+        "')]",
         e
       )
     }
@@ -334,28 +459,28 @@ LocatorBuilders.add('xpath:img', function xpathImg(e) {
     if (e.alt != '') {
       return this.preciseXPath(
         '//' +
-          this.xpathHtmlElement('img') +
-          '[@alt=' +
-          this.attributeValue(e.alt) +
-          ']',
+        this.xpathHtmlElement('img') +
+        '[@alt=' +
+        this.attributeValue(e.alt) +
+        ']',
         e
       )
     } else if (e.title != '') {
       return this.preciseXPath(
         '//' +
-          this.xpathHtmlElement('img') +
-          '[@title=' +
-          this.attributeValue(e.title) +
-          ']',
+        this.xpathHtmlElement('img') +
+        '[@title=' +
+        this.attributeValue(e.title) +
+        ']',
         e
       )
     } else if (e.src != '') {
       return this.preciseXPath(
         '//' +
-          this.xpathHtmlElement('img') +
-          '[contains(@src,' +
-          this.attributeValue(e.src) +
-          ')]',
+        this.xpathHtmlElement('img') +
+        '[contains(@src,' +
+        this.attributeValue(e.src) +
+        ')]',
         e
       )
     }
@@ -437,11 +562,11 @@ LocatorBuilders.add('xpath:idRelative', function xpathIdRelative(e) {
       ) {
         return this.preciseXPath(
           '//' +
-            this.xpathHtmlElement(current.parentNode.nodeName.toLowerCase()) +
-            '[@id=' +
-            this.attributeValue(current.parentNode.getAttribute('id')) +
-            ']' +
-            path,
+          this.xpathHtmlElement(current.parentNode.nodeName.toLowerCase()) +
+          '[@id=' +
+          this.attributeValue(current.parentNode.getAttribute('id')) +
+          ']' +
+          path,
           e
         )
       }
@@ -459,20 +584,20 @@ LocatorBuilders.add('xpath:href', function xpathHref(e) {
     if (href.search(/^http?:\/\//) >= 0) {
       return this.preciseXPath(
         '//' +
-          this.xpathHtmlElement('a') +
-          '[@href=' +
-          this.attributeValue(href) +
-          ']',
+        this.xpathHtmlElement('a') +
+        '[@href=' +
+        this.attributeValue(href) +
+        ']',
         e
       )
     } else {
       // use contains(), because in IE getAttribute("href") will return absolute path
       return this.preciseXPath(
         '//' +
-          this.xpathHtmlElement('a') +
-          '[contains(@href, ' +
-          this.attributeValue(href) +
-          ')]',
+        this.xpathHtmlElement('a') +
+        '[contains(@href, ' +
+        this.attributeValue(href) +
+        ')]',
         e
       )
     }
