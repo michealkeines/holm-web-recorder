@@ -46,7 +46,7 @@ Recorder.inputTypes = [
   'tel',
   'color',
 ]
-Recorder.addEventHandler('type', 'change', function(event) {
+Recorder.addEventHandler('type', 'change', function (event) {
   // © Chen-Chieh Ping, SideeX Team
   if (
     event.target.tagName &&
@@ -96,7 +96,61 @@ Recorder.addEventHandler('type', 'change', function(event) {
   this.recordingState.typeLock = 0
 })
 
-Recorder.addEventHandler('type', 'input', function(event) {
+Recorder.addEventHandler('typeShadow', 'change', function (event) {
+  // © Chen-Chieh Ping, SideeX Team
+  if (
+    event.target.tagName &&
+    !this.recordingState.preventType &&
+    this.recordingState.typeLock == 0 &&
+    (this.recordingState.typeLock = 1)
+  ) {
+    // END
+    let tagName = event.target.tagName.toLowerCase()
+    let type = event.target.type
+    if ('input' == tagName && Recorder.inputTypes.indexOf(type) >= 0) {
+      if (event.target.value.length > 0) {
+        record(
+          'type',
+          locatorBuilders.buildAll(event.target),
+          event.target.value
+        )
+
+        // © Chen-Chieh Ping, SideeX Team
+        if (this.recordingState.enterTarget != null) {
+          let tempTarget = event.target.parentElement
+          let formChk = tempTarget.tagName.toLowerCase()
+          while (formChk != 'form' && formChk != 'body') {
+            tempTarget = tempTarget.parentElement
+            formChk = tempTarget.tagName.toLowerCase()
+          }
+
+          record(
+            'sendKeys',
+            locatorBuilders.buildAll(this.recordingState.enterTarget),
+            '${KEY_ENTER}'
+          )
+          this.recordingState.enterTarget = null
+        }
+        // END
+      } else {
+        record(
+          'type',
+          locatorBuilders.buildAll(event.target),
+          event.target.value
+        )
+      }
+    } else if ('textarea' == tagName) {
+      record('type', locatorBuilders.buildAll(event.target), event.target.value)
+    }
+  }
+  this.recordingState.typeLock = 0
+})
+
+Recorder.addEventHandler('type', 'input', function (event) {
+  this.recordingState.typeTarget = event.target
+})
+
+Recorder.addEventHandler('typeShadow', 'input', function (event) {
   this.recordingState.typeTarget = event.target
 })
 
@@ -108,13 +162,15 @@ function eventIsTrusted(event) {
 Recorder.addEventHandler(
   'clickAt',
   'click',
-  function(event) {
+  function (event) {
+    // console.log(`clicked something? ${JSON.stringify(event)}`)
     if (
       event.button == 0 &&
       !this.recordingState.preventClick &&
       eventIsTrusted(event)
     ) {
       if (!this.recordingState.preventClickTwice) {
+        // console.log(`clicked something? ${JSON.stringify(event)}, building target`)
         record('click', locatorBuilders.buildAll(event.target), '')
         this.recordingState.preventClickTwice = true
       }
@@ -127,21 +183,55 @@ Recorder.addEventHandler(
 )
 // END
 
+Recorder.addEventHandler(
+  'clickAtShadow',
+  'click',
+  function (event) {
+    // console.log(`clicked something in clickatshadow? ${JSON.stringify(event)}`)
+    if (
+      event.button == 0 &&
+      !this.recordingState.preventClick &&
+      eventIsTrusted(event)
+    ) {
+      if (!this.recordingState.preventClickTwice) {
+        // console.log(`clicked something in clickatshadow? ${JSON.stringify(event)}, building target`)
+        record('click', locatorBuilders.buildAll(event.target), '')
+        this.recordingState.preventClickTwice = true
+      }
+      setTimeout(() => {
+        this.recordingState.preventClickTwice = false
+      }, 30)
+    }
+  },
+  true
+)
+
 // © Chen-Chieh Ping, SideeX Team
 Recorder.addEventHandler(
-  'doubleClickAt',
+  'doubleClickAtShadow',
   'dblclick',
-  function(event) {
+  function (event) {
     record('doubleClick', locatorBuilders.buildAll(event.target), '')
   },
   true
 )
 // END
 
+
+Recorder.addEventHandler(
+  'doubleClickAt',
+  'dblclick',
+  function (event) {
+    record('doubleClick', locatorBuilders.buildAll(event.target), '')
+  },
+  true
+)
+
+
 Recorder.addEventHandler(
   'sendKeys',
   'keydown',
-  function(event) {
+  function (event) {
     if (event.target.tagName) {
       let key = event.keyCode
       let tagName = event.target.tagName.toLowerCase()
@@ -154,7 +244,7 @@ Recorder.addEventHandler(
           let formChk = tempTarget.tagName.toLowerCase()
           if (
             this.recordingState.tempValue ==
-              this.recordingState.enterTarget.value &&
+            this.recordingState.enterTarget.value &&
             this.recordingState.tabCheck == this.recordingState.enterTarget
           ) {
             record(
@@ -241,7 +331,7 @@ Recorder.addEventHandler(
           if (
             this.recordingState.focusTarget != null &&
             this.recordingState.focusTarget.value !=
-              this.recordingState.tempValue
+            this.recordingState.tempValue
           ) {
             tempbool = true
             this.recordingState.tempValue = this.recordingState.focusTarget.value
@@ -294,7 +384,7 @@ let mousedown, mouseup, selectMouseup, selectMousedown, mouseoverQ, clickLocator
 Recorder.addEventHandler(
   'dragAndDrop',
   'mousedown',
-  function(event) {
+  function (event) {
     mousedown = undefined
     selectMousedown = undefined
     if (
@@ -333,7 +423,7 @@ Recorder.addEventHandler(
 Recorder.addEventHandler(
   'dragAndDrop',
   'mouseup',
-  function(event) {
+  function (event) {
     function getSelectionText() {
       let text = ''
       let activeEl = window.document.activeElement
@@ -458,7 +548,7 @@ let dropLocator, dragstartLocator
 Recorder.addEventHandler(
   'dragAndDropToObject',
   'dragstart',
-  function(event) {
+  function (event) {
     dropLocator = setTimeout(() => {
       dragstartLocator = event
     }, 200)
@@ -471,7 +561,7 @@ Recorder.addEventHandler(
 Recorder.addEventHandler(
   'dragAndDropToObject',
   'drop',
-  function(event) {
+  function (event) {
     clearTimeout(dropLocator)
     if (
       dragstartLocator &&
@@ -498,7 +588,7 @@ let prevTimeOut = null,
 Recorder.addEventHandler(
   'runScript',
   'scroll',
-  function(event) {
+  function (event) {
     if (pageLoaded === true) {
       scrollDetector = event.target
       clearTimeout(prevTimeOut)
@@ -519,7 +609,7 @@ let nowNode = 0,
 Recorder.addEventHandler(
   'mouseOver',
   'mouseover',
-  function(event) {
+  function (event) {
     if (window.document.documentElement)
       nowNode = window.document.documentElement.getElementsByTagName('*').length
     if (pageLoaded === true) {
@@ -549,7 +639,7 @@ let mouseoutLocator = undefined
 Recorder.addEventHandler(
   'mouseOut',
   'mouseout',
-  function(event) {
+  function (event) {
     if (mouseoutLocator !== null && event.target === mouseoutLocator) {
       record('mouseOut', locatorBuilders.buildAll(event.target), '')
     }
@@ -561,7 +651,7 @@ Recorder.addEventHandler(
 
 Recorder.addMutationObserver(
   'FrameDeleted',
-  function(mutations) {
+  function (mutations) {
     mutations.forEach(async mutation => {
       const removedNodes = await mutation.removedNodes
       if (
@@ -569,7 +659,7 @@ Recorder.addMutationObserver(
         removedNodes[0].nodeName === 'IFRAME' &&
         removedNodes[0].id !== 'selenium-ide-indicator'
       ) {
-        browser.runtime.sendMessage({ frameRemoved: true }).catch(() => {})
+        browser.runtime.sendMessage({ frameRemoved: true }).catch(() => { })
       }
     })
   },
@@ -578,7 +668,7 @@ Recorder.addMutationObserver(
 
 Recorder.addMutationObserver(
   'DOMNodeInserted',
-  function(mutations) {
+  function (mutations) {
     if (
       pageLoaded === true &&
       window.document.documentElement.getElementsByTagName('*').length > nowNode
@@ -623,7 +713,7 @@ let pageLoaded = true
 Recorder.addEventHandler(
   'checkPageLoaded',
   'readystatechange',
-  function(event) {
+  function (event) {
     if (window.document.readyState === 'loading') {
       pageLoaded = false
     } else {
@@ -642,10 +732,10 @@ Recorder.addEventHandler(
 Recorder.addEventHandler(
   'contextMenu',
   'contextmenu',
-  function(event) {
+  function (event) {
     let myPort = browser.runtime.connect()
     let tmpTarget = locatorBuilders.buildAll(event.target)
-    myPort.onMessage.addListener(function(m) {
+    myPort.onMessage.addListener(function (m) {
       if (m.cmd.includes('Text') || m.cmd.includes('Label')) {
         let tmpText = bot.dom.getVisibleText(event.target)
         record(m.cmd, tmpTarget, tmpText)
@@ -681,7 +771,7 @@ let contentTest
 Recorder.addEventHandler(
   'editContent',
   'focus',
-  function(event) {
+  function (event) {
     let editable = event.target.contentEditable
     if (editable == 'true') {
       getEle = event.target
@@ -697,7 +787,7 @@ Recorder.addEventHandler(
 Recorder.addEventHandler(
   'editContent',
   'blur',
-  function(event) {
+  function (event) {
     if (checkFocus == 1) {
       if (event.target == getEle) {
         if (getEle.innerHTML != contentTest) {
@@ -719,23 +809,23 @@ browser.runtime
   .sendMessage({
     attachRecorderRequest: true,
   })
-  .catch(function(reason) {
+  .catch(function (reason) {
     // Failed silently if receiveing end does not exist
   })
 
 // Copyright 2005 Shinya Kasatani
-Recorder.prototype.getOptionLocator = function(option) {
+Recorder.prototype.getOptionLocator = function (option) {
   let label = option.text.replace(/^ *(.*?) *$/, '$1')
   if (label.match(/\xA0/)) {
     // if the text contains &nbsp;
     return (
       'label=regexp:' +
       label
-        .replace(/[\(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function(str) {
+        .replace(/[\(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function (str) {
           // eslint-disable-line no-useless-escape
           return '\\' + str
         })
-        .replace(/\s+/g, function(str) {
+        .replace(/\s+/g, function (str) {
           if (str.match(/\xA0/)) {
             if (str.length > 1) {
               return '\\s+'
@@ -782,7 +872,7 @@ function findClickableElement(e) {
 Recorder.addEventHandler(
   'select',
   'focus',
-  function(event) {
+  function (event) {
     if (event.target.nodeName) {
       let tagName = event.target.nodeName.toLowerCase()
       if ('select' == tagName && event.target.multiple) {
@@ -799,7 +889,7 @@ Recorder.addEventHandler(
   true
 )
 
-Recorder.addEventHandler('select', 'change', function(event) {
+Recorder.addEventHandler('select', 'change', function (event) {
   if (event.target.tagName) {
     let tagName = event.target.tagName.toLowerCase()
     if ('select' == tagName) {
@@ -844,11 +934,11 @@ function getOptionLocator(option) {
     return (
       'label=regexp:' +
       label
-        .replace(/[(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function(str) {
+        .replace(/[(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function (str) {
           // eslint-disable-line no-useless-escape
           return '\\' + str
         })
-        .replace(/\s+/g, function(str) {
+        .replace(/\s+/g, function (str) {
           if (str.match(/\xA0/)) {
             if (str.length > 1) {
               return '\\s+'
@@ -874,4 +964,4 @@ browser.runtime
       recorder.attach()
     }
   })
-  .catch(() => {})
+  .catch(() => { })
