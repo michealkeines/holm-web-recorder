@@ -71,16 +71,12 @@ LocatorBuilders.prototype.buildAll = function (el) {
         if (locator.includes("##sep##")) {
           // console.log(`clicked something? added ${JSON.stringify(locator)}`)
           locators.push([locator, finderName])
+          return locators
         }
         let fe = this.findElement(locator)
         // console.log(`clicked something? foudn it ${JSON.stringify(fe)}`)
 
-        if (fe.length > 1) {
-          fe.forEach(k => {
-            // console.log(`found something different ${JSON.stringify(k)}`)  
-          });
-
-        } else if (fe.length == 1) {
+        if (fe && fe.length == 1) {
           if (e == fe[0]) {
             locators.push([locator, finderName])
           }
@@ -89,7 +85,7 @@ LocatorBuilders.prototype.buildAll = function (el) {
       }
     } catch (e) {
       // TODO ignore the buggy locator builder for now
-      //this.log.debug("locator exception: " + e);
+      //console.log("locator exception: " + e);
     }
   }
   return locators
@@ -104,50 +100,12 @@ function recursiveFinder(node) {
     // Construct selectors for both the current node and its host
     let selectorForNode = finder(node, { root: root });
     let parentSelector = recursiveFinder(root.host);
+    console.log(`${parentSelector} => ${root.host.id}##sep##${selectorForNode} => ${node.id}`);
     return `${parentSelector}##sep##${selectorForNode}`;
   } else {
     // Base case: We've reached the highest root, return the finder result
     return finder(node);
   }
-}
-
-
-LocatorBuilders.prototype.buildAllShadow = function (el) {
-  let e = core.firefox.unwrap(el) //Samit: Fix: Do the magic to get it to work in Firefox 4
-  let locator
-  let locators = []
-  // console.log(`clicked something shadow? we got multiple finders ${JSON.stringify(e)}`)
-  let finderName = 'css:findershadow'
-  // console.log(`clicked something shadow? current finder ${JSON.stringify(e)}, ${JSON.stringify(finderName)}`)
-  try {
-    locator = this.buildWith(finderName, e)
-    locators.push([locator, finderName])
-    // if (locator) {
-    //   locator = String(locator)
-    //   //Samit: The following is a quickfix for above commented code to stop exceptions on almost every locator builder
-    //   //TODO: the builderName should NOT be used as a strategy name, create a feature to allow locatorBuilders to specify this kind of behaviour
-    //   //TODO: Useful if a builder wants to capture a different element like a parent. Use the this.elementEquals
-    //   console.log(`clicked something shadow? we will find the element then, ${JSON.stringify(locator)}`)
-    //   let fe = this.findElement(locator)
-    //   console.log(`clicked something shadow? foudn it ${JSON.stringify(fe)}`)
-    //   if (fe.length > 1) {
-    //     fe.forEach(k => {
-    //       console.log(`found something shadow different ${JSON.stringify(k)}`)
-
-    //     });
-
-    //   } else if (fe.length == 1) {
-    //     if (e == fe[0]) {
-    //       locators.push([locator, finderName])
-    //     }
-    //   }
-
-    // }
-  } catch (e) {
-    // TODO ignore the buggy locator builder for now
-    // console.log("locator exception shadow build: " + e);
-  }
-  return locators
 }
 
 function findElementsInShadowDOM(node, callback) {
@@ -166,11 +124,6 @@ function findElementsInShadowDOM(node, callback) {
 
 LocatorBuilders.prototype.findElement = function (loc) {
   try {
-    // const locator = parse_locator(loc, true)
-    // return bot.locators.findElement(
-    //   { [locator.type]: locator.string },
-    //   this.window.document
-    // )
     const locator = parse_locator(loc, true);
     let element = bot.locators.findElement(
       { [locator.type]: locator.string },
@@ -181,19 +134,15 @@ LocatorBuilders.prototype.findElement = function (loc) {
 
     // Find elements within shadow DOM
     if (element.shadowRoot) {
-      // console.log(`element is shadow ${JSON.stringify(element)}`) 
       findElementsInShadowDOM(element.shadowRoot, shadowElement => {
-        // Handle shadow element as needed
-        //elements.push(shadowElement)
+        // Handle shadow element
       });
     } else {
       elements.push(element)
     }
-
     return elements;
   } catch (error) {
-    //this.log.debug("findElement failed: " + error + ", locator=" + locator);
-    return null
+    return []
   }
 }
 
@@ -426,14 +375,8 @@ LocatorBuilders.add('css:findershadow', function cssFinder(e) {
   try {
     temp = 'css=' + recursiveFinder(e)
   } catch (k) {
-    // console.log(`css starting finder error ${k}`)
-    return '8css=error'
+    return 'css=error'
   }
-
-  // console.log(`css finder:11 ${JSON.stringify(e)}`)
-  // console.log(`css finder11: ${e}`)
-
-  // console.log(`css finder112: ${e}: ${temp}`)
   return temp
 })
 

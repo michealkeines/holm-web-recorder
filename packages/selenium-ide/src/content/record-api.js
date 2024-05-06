@@ -17,7 +17,6 @@
 
 import browser from 'webextension-polyfill'
 import { calculateFrameIndex } from './utils'
-import finder from '@medv/finder'
 
 let contentSideexTabId = -1
 let frameLocation = ''
@@ -40,7 +39,6 @@ Recorder.addEventHandler = function (handlerName, eventName, handler, options) {
     this.eventHandlers[key] = []
   }
   this.eventHandlers[key].push(handler)
-  // console.log(`added handler: ${handlerName}`)
 }
 
 Recorder.addMutationObserver = function (observerName, callback, config) {
@@ -131,24 +129,14 @@ Recorder.prototype.attach = function () {
           for (let i = 0; i < handlers.length; i++) {
             let handlername = handlers[i].handlerName
             // console.log(`while traversing found a shadow to event: ${JSON.stringify(element)}, ${handlername}`)
-
             if (handlername.includes("adow")) {
               let handler = (event) => {
-                // You can now use `someVariable` and `anotherVariable` here
-                // console.log(`Variables in handler: ${this.recordingState}, ${event}`);
                 return handlers[i].bind(this)(event); // Bind and call the original function
               };
               shadowRoot.addEventListener(eventName, handler, capture);
-              // console.log(`handler added ${handlername}`)
+              // console.log(`handler added ${handlername}, ${element.id}`)
               this.eventListeners[eventKey].push(handler);
             }
-            // let handler = (event) => {
-            //   // console.log(`handler called, how? ${event}, ${JSON.stringify(event)}, ${event.target}`)
-            //   // console.log(`clicked something with shadow? ${JSON.stringify(event)}, building target`)       
-            //   record('click', locatorBuilders.buildAllShadow(event.target), '')
-            // }
-            // shadowRoot.addEventListener(eventName, handler, capture);
-            // this.eventListeners[eventKey].push(handler);
           }
         }
       }
@@ -162,13 +150,24 @@ Recorder.prototype.attach = function () {
         }
       }
 
-      // Recursively traverse through child elements
-      element.childNodes.forEach(child => {
-        if (child.nodeType === Node.ELEMENT_NODE) {
-          // console.log(`current node traversing: ${JSON.stringify(child)}`)
-          traverseElements(child);
-        }
-      });
+      if (element.shadowRoot) {
+        console.log(`current node traversing shadow: ${element.shadowRoot.id}`)
+        element.shadowRoot.childNodes.forEach(child => {
+          if (child.nodeType === Node.ELEMENT_NODE) {
+            console.log(`current node traversing shadow child: ${child.id}`)
+            traverseElements(child);
+          }
+        });
+
+      } else {
+        console.log(`current node traversing normal: ${element.id}`)
+        element.childNodes.forEach(child => {
+          if (child.nodeType === Node.ELEMENT_NODE) {
+             console.log(`current node traversing child: ${child.id}, ${child}`)
+            traverseElements(child);
+          }
+        });
+      }  
     };
 
     traverseElements(this.window.document.body);
@@ -278,9 +277,9 @@ function addRecordingIndicator() {
           },
           '*'
         )
-        recordingIndicator.style.borderColor = 'black'
+       recordingIndicator.style.borderColor = 'black'
         setTimeout(() => {
-          recordingIndicator.style.borderColor = '#d30100'
+         recordingIndicator.style.borderColor = '#d30100'
         }, 1000)
         sendResponse(true)
       }
@@ -392,8 +391,9 @@ export function record(
         actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
       commandSideexTabId: contentSideexTabId,
     })
-    .catch(() => {
-      recorder.detach()
+    .catch((e) => {
+      console.log(`error : ${e}\n${e.stack}`);
+      //recorder.detach()
     })
 }
 
