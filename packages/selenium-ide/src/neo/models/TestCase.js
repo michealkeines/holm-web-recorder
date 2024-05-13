@@ -151,10 +151,20 @@ export default class TestCase {
   }
 
   export() {
+    let temp = this.commands.map(c => c.export());
+    let string_ver = JSON.stringify(temp);
+    if (string_ver.includes("##sep##")) {
+      return {
+        id: this.id,
+        name: this.name,
+        has_shadow_dom: true,
+        commands: temp
+      }
+    }
     return {
       id: this.id,
       name: this.name,
-      commands: this.commands.map(c => c.export()),
+      commands: temp,
     }
   }
 
