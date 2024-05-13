@@ -163,14 +163,12 @@ Recorder.addEventHandler(
   'clickAt',
   'click',
   function (event) {
-    // console.log(`clicked something? ${JSON.stringify(event)}`)
     if (
       event.button == 0 &&
       !this.recordingState.preventClick &&
       eventIsTrusted(event)
     ) {
       if (!this.recordingState.preventClickTwice) {
-        // console.log(`clicked something? ${JSON.stringify(event)}, building target`)
         record('click', locatorBuilders.buildAll(event.target), '')
         this.recordingState.preventClickTwice = true
       }
@@ -187,14 +185,12 @@ Recorder.addEventHandler(
   'clickAtShadow',
   'click',
   function (event) {
-    // console.log(`clicked something in clickatshadow? ${JSON.stringify(event)}`)
     if (
       event.button == 0 &&
       !this.recordingState.preventClick &&
       eventIsTrusted(event)
     ) {
       if (!this.recordingState.preventClickTwice) {
-        // console.log(`clicked something in clickatshadow? ${JSON.stringify(event)}, building target`)
         record('click', locatorBuilders.buildAll(event.target), '')
         this.recordingState.preventClickTwice = true
       }

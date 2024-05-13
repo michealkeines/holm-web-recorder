@@ -128,13 +128,11 @@ Recorder.prototype.attach = function () {
           this.eventListeners[eventKey] = this.eventListeners[eventKey] || [];
           for (let i = 0; i < handlers.length; i++) {
             let handlername = handlers[i].handlerName
-            // console.log(`while traversing found a shadow to event: ${JSON.stringify(element)}, ${handlername}`)
             if (handlername.includes("adow")) {
               let handler = (event) => {
                 return handlers[i].bind(this)(event); // Bind and call the original function
               };
               shadowRoot.addEventListener(eventName, handler, capture);
-              // console.log(`handler added ${handlername}, ${element.id}`)
               this.eventListeners[eventKey].push(handler);
             }
           }
@@ -145,25 +143,20 @@ Recorder.prototype.attach = function () {
       for (let observerName in Recorder.mutationObservers) {
         const observer = Recorder.mutationObservers[observerName];
         if (element.shadowRoot) {
-          // console.log(`while traversing found a shadow to observe: ${JSON.stringify(element)}`)
           observer.observe(element.shadowRoot, observer.config);
         }
       }
 
       if (element.shadowRoot) {
-        console.log(`current node traversing shadow: ${element.shadowRoot.id}`)
         element.shadowRoot.childNodes.forEach(child => {
           if (child.nodeType === Node.ELEMENT_NODE) {
-            console.log(`current node traversing shadow child: ${child.id}`)
             traverseElements(child);
           }
         });
 
       } else {
-        console.log(`current node traversing normal: ${element.id}`)
         element.childNodes.forEach(child => {
           if (child.nodeType === Node.ELEMENT_NODE) {
-             console.log(`current node traversing child: ${child.id}, ${child}`)
             traverseElements(child);
           }
         });
@@ -392,8 +385,8 @@ export function record(
       commandSideexTabId: contentSideexTabId,
     })
     .catch((e) => {
-      console.log(`error : ${e}\n${e.stack}`);
-      //recorder.detach()
+      // TODO: check this in future
+      // recorder.detach()
     })
 }
 

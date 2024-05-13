@@ -55,10 +55,8 @@ LocatorBuilders.prototype.buildAll = function (el) {
   let e = core.firefox.unwrap(el) //Samit: Fix: Do the magic to get it to work in Firefox 4
   let locator
   let locators = []
-  // console.log(`clicked something? we got multiple finders ${JSON.stringify(e)}`)
   for (let i = 0; i < LocatorBuilders.order.length; i++) {
     let finderName = LocatorBuilders.order[i]
-    // console.log(`clicked something? current finder ${JSON.stringify(e)}, ${JSON.stringify(finderName)}`)
     try {
       locator = this.buildWith(finderName, e)
       if (locator) {
@@ -66,15 +64,12 @@ LocatorBuilders.prototype.buildAll = function (el) {
         //Samit: The following is a quickfix for above commented code to stop exceptions on almost every locator builder
         //TODO: the builderName should NOT be used as a strategy name, create a feature to allow locatorBuilders to specify this kind of behaviour
         //TODO: Useful if a builder wants to capture a different element like a parent. Use the this.elementEquals
-        // console.log(`clicked something? we will find the element then, ${JSON.stringify(locator)}`)
 
         if (locator.includes("##sep##")) {
-          // console.log(`clicked something? added ${JSON.stringify(locator)}`)
           locators.push([locator, finderName])
           return locators
         }
         let fe = this.findElement(locator)
-        // console.log(`clicked something? foudn it ${JSON.stringify(fe)}`)
 
         if (fe && fe.length == 1) {
           if (e == fe[0]) {
@@ -85,7 +80,6 @@ LocatorBuilders.prototype.buildAll = function (el) {
       }
     } catch (e) {
       // TODO ignore the buggy locator builder for now
-      //console.log("locator exception: " + e);
     }
   }
   return locators
@@ -100,7 +94,6 @@ function recursiveFinder(node) {
     // Construct selectors for both the current node and its host
     let selectorForNode = finder(node, { root: root });
     let parentSelector = recursiveFinder(root.host);
-    console.log(`${parentSelector} => ${root.host.id}##sep##${selectorForNode} => ${node.id}`);
     return `${parentSelector}##sep##${selectorForNode}`;
   } else {
     // Base case: We've reached the highest root, return the finder result
@@ -157,7 +150,6 @@ LocatorBuilders._preferredOrder = []
 // classObservable(LocatorBuilders);
 
 LocatorBuilders.add = function (name, finder) {
-  // console.log(`adding a finder: ${name}, ${JSON.stringify(finder)}`)
   this.order.push(name)
   this.builderMap[name] = finder
   this._orderChanged()
@@ -370,12 +362,11 @@ LocatorBuilders.add('css:finder', function cssFinder(e) {
 })
 
 LocatorBuilders.add('css:findershadow', function cssFinder(e) {
-  // console.log(`css starting finder`)
   let temp
   try {
     temp = 'css=' + recursiveFinder(e)
   } catch (k) {
-    return 'css=error'
+    return 'css=errordontexistcss'
   }
   return temp
 })
