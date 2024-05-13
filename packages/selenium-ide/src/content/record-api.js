@@ -31,7 +31,7 @@ function Recorder(window) {
 
 Recorder.eventHandlers = {}
 Recorder.mutationObservers = {}
-Recorder.addEventHandler = function(handlerName, eventName, handler, options) {
+Recorder.addEventHandler = function (handlerName, eventName, handler, options) {
   handler.handlerName = handlerName
   if (!options) options = false
   let key = options ? 'C_' + eventName : eventName
@@ -41,14 +41,14 @@ Recorder.addEventHandler = function(handlerName, eventName, handler, options) {
   this.eventHandlers[key].push(handler)
 }
 
-Recorder.addMutationObserver = function(observerName, callback, config) {
+Recorder.addMutationObserver = function (observerName, callback, config) {
   const observer = new MutationObserver(callback)
   observer.observerName = observerName
   observer.config = config
   this.mutationObservers[observerName] = observer
 }
 
-Recorder.prototype.parseEventKey = function(eventKey) {
+Recorder.prototype.parseEventKey = function (eventKey) {
   if (eventKey.match(/^C_/)) {
     return { eventName: eventKey.substring(2), capture: true }
   } else {
@@ -92,7 +92,7 @@ function detachInputListeners(recordingState) {
   })
 }
 
-Recorder.prototype.attach = function() {
+Recorder.prototype.attach = function () {
   if (!this.attached) {
     for (let eventKey in Recorder.eventHandlers) {
       const eventInfo = this.parseEventKey(eventKey)
@@ -102,6 +102,8 @@ Recorder.prototype.attach = function() {
       const handlers = Recorder.eventHandlers[eventKey]
       this.eventListeners[eventKey] = []
       for (let i = 0; i < handlers.length; i++) {
+        let handlername = handlers[i].handlerName
+        if (handlername.includes("adow")) { continue; }
         let handler = handlers[i].bind(this)
         this.window.document.addEventListener(eventName, handler, capture)
         this.eventListeners[eventKey].push(handler)
@@ -111,6 +113,58 @@ Recorder.prototype.attach = function() {
       const observer = Recorder.mutationObservers[observerName]
       observer.observe(this.window.document.body, observer.config)
     }
+
+    // Traverse through all elements in the document
+    const traverseElements = (element) => {
+      // Attach event listeners for shadow DOM elements
+      for (let eventKey in Recorder.eventHandlers) {
+        const eventInfo = this.parseEventKey(eventKey)
+        const eventName = eventInfo.eventName
+        const capture = eventInfo.capture
+
+        const handlers = Recorder.eventHandlers[eventKey]
+        if (element.shadowRoot) {
+          const shadowRoot = element.shadowRoot;
+          this.eventListeners[eventKey] = this.eventListeners[eventKey] || [];
+          for (let i = 0; i < handlers.length; i++) {
+            let handlername = handlers[i].handlerName
+            if (handlername.includes("adow")) {
+              let handler = (event) => {
+                return handlers[i].bind(this)(event); // Bind and call the original function
+              };
+              shadowRoot.addEventListener(eventName, handler, capture);
+              this.eventListeners[eventKey].push(handler);
+            }
+          }
+        }
+      }
+
+      // Attach mutation observers for shadow DOM elements
+      for (let observerName in Recorder.mutationObservers) {
+        const observer = Recorder.mutationObservers[observerName];
+        if (element.shadowRoot) {
+          observer.observe(element.shadowRoot, observer.config);
+        }
+      }
+
+      if (element.shadowRoot) {
+        element.shadowRoot.childNodes.forEach(child => {
+          if (child.nodeType === Node.ELEMENT_NODE) {
+            traverseElements(child);
+          }
+        });
+
+      } else {
+        element.childNodes.forEach(child => {
+          if (child.nodeType === Node.ELEMENT_NODE) {
+            traverseElements(child);
+          }
+        });
+      }  
+    };
+
+    traverseElements(this.window.document.body);
+
     this.attached = true
     this.recordingState = {
       typeTarget: undefined,
@@ -130,7 +184,7 @@ Recorder.prototype.attach = function() {
   }
 }
 
-Recorder.prototype.detach = function() {
+Recorder.prototype.detach = function () {
   for (let eventKey in this.eventListeners) {
     const eventInfo = this.parseEventKey(eventKey)
     const eventName = eventInfo.eventName
@@ -192,16 +246,16 @@ function addRecordingIndicator() {
     recordingIndicator.style['z-index'] = 1000000000000000
     recordingIndicator.addEventListener(
       'mouseenter',
-      function(event) {
+      function (event) {
         event.target.style.visibility = 'hidden'
-        setTimeout(function() {
+        setTimeout(function () {
           event.target.style.visibility = 'visible'
         }, 1000)
       },
       false
     )
     window.document.body.appendChild(recordingIndicator)
-    browser.runtime.onMessage.addListener(function(
+    browser.runtime.onMessage.addListener(function (
       message,
       sender, // eslint-disable-line
       sendResponse
@@ -216,9 +270,9 @@ function addRecordingIndicator() {
           },
           '*'
         )
-        recordingIndicator.style.borderColor = 'black'
+       recordingIndicator.style.borderColor = 'black'
         setTimeout(() => {
-          recordingIndicator.style.borderColor = '#d30100'
+         recordingIndicator.style.borderColor = '#d30100'
         }, 1000)
         sendResponse(true)
       }
@@ -228,7 +282,7 @@ function addRecordingIndicator() {
         setFrameNumberForTab: true,
         indicatorIndex: indicatorIndex,
       })
-      .catch(() => {})
+      .catch(() => { })
   }
 }
 
@@ -259,7 +313,7 @@ async function getFrameLocation() {
     }
 
     if (currentParentWindow === window.top) {
-      frameCount = await getFrameCount().catch(() => {})
+      frameCount = await getFrameCount().catch(() => { })
       if (frameCount) recordingIndicatorIndex = frameCount.indicatorIndex
     }
 
@@ -282,12 +336,12 @@ async function getFrameLocation() {
   frameLocation = 'root' + frameLocation
   await browser.runtime
     .sendMessage({ frameLocation: frameLocation })
-    .catch(() => {})
+    .catch(() => { })
 }
 
 function recalculateFrameLocation(message, _sender, sendResponse) {
   if (message.recalculateFrameLocation) {
-    ;(async () => {
+    ; (async () => {
       removeRecordingIndicator()
       setTimeout(async () => {
         await addRecordingIndicator()
@@ -302,11 +356,11 @@ function recalculateFrameLocation(message, _sender, sendResponse) {
 
 browser.runtime.onMessage.addListener(recalculateFrameLocation)
 
-// runs in the content script of each frame
-// e.g., once on load
-;(async () => {
-  await getFrameLocation()
-})()
+  // runs in the content script of each frame
+  // e.g., once on load
+  ; (async () => {
+    await getFrameLocation()
+  })()
 
 window.recorder = recorder
 window.contentSideexTabId = contentSideexTabId
@@ -330,8 +384,9 @@ export function record(
         actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
       commandSideexTabId: contentSideexTabId,
     })
-    .catch(() => {
-      recorder.detach()
+    .catch((e) => {
+      // TODO: check this in future
+      // recorder.detach()
     })
 }
 
