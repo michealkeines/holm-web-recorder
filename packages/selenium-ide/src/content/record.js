@@ -187,15 +187,15 @@ Recorder.addEventHandler(
   function (event) {
     if (
       event.button == 0 &&
-      !this.recordingState.preventClick &&
+      !this.recordingState.preventClickShadow &&
       eventIsTrusted(event)
     ) {
-      if (!this.recordingState.preventClickTwice) {
+      if (!this.recordingState.preventClickTwiceShadow) {
         record('click', locatorBuilders.buildAll(event.target), '')
-        this.recordingState.preventClickTwice = true
+        this.recordingState.preventClickTwiceShadow = true
       }
       setTimeout(() => {
-        this.recordingState.preventClickTwice = false
+        this.recordingState.preventClickTwiceShadow = false
       }, 30)
     }
   },
