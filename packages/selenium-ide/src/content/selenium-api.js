@@ -615,6 +615,28 @@ Selenium.prototype.doStoreAttribute = function(locator, varName) {
   })
 }
 
+function justWait(condition) {
+  return new Promise(function(resolve, reject) {
+    let count = 0
+    let retryInterval = 100
+    let result = false
+    let interval = setInterval(function() {
+      try {
+        result = condition(count)
+      } catch (error) {
+        clearInterval(interval)
+        reject(error.message)
+      }
+      if (!result) {
+        count += retryInterval
+      } else if (result) {
+        clearInterval(interval)
+        resolve()
+      }
+    }, retryInterval)
+  })
+}
+
 function waitUntil(condition, target, timeout, failureMessage) {
   if (!timeout) {
     throw new Error('Timeout not specified.')
@@ -3079,6 +3101,29 @@ Selenium.prototype.doWaitForCondition = function(script, timeout) {
   return Selenium.decorateFunctionWithTimeout(function() {
     return this.eval(script)
   }, timeout)
+}
+
+Selenium.prototype.doWaitForLoad = function(selector, timeout) {
+  /**
+   * Just Wait
+   * @param timeout a timeout in milliseconds
+   */
+  let converted = timeout * 1000;
+  return justWait(
+    function(count) { return (count > converted) }
+  )
+}
+
+Selenium.prototype.doSleep = function(selector, timeout) {
+  /**
+   * Just Wait
+   * @param timeout a timeout in milliseconds
+   */
+
+  let converted = timeout * 1000;
+  return justWait(
+    function(count) { return (count > converted) }
+  )
 }
 
 Selenium.prototype.doWaitForCondition.dontCheckAlertsAndConfirms = true

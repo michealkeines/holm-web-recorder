@@ -746,6 +746,26 @@ export const Commands = [
     },
   ],
   [
+    'waitForLoad',
+    {
+      name: 'waitForLoad',
+      type: TargetTypes.LOCATOR,
+      description: `Wait for events to load. Supported by Holm Security.`,
+      target: ArgTypes.locator,
+      value: ArgTypes.waitTime,
+    },
+  ],
+  [
+    'sleep',
+    {
+      name: 'sleep',
+      type: TargetTypes.LOCATOR,
+      description: `Sleep. Supported by Holm Security.`,
+      target: ArgTypes.locator,
+      value: ArgTypes.waitTime,
+    },
+  ],
+  [
     'uncheck',
     {
       name: 'uncheck',
